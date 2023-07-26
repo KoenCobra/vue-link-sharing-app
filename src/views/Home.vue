@@ -3,7 +3,6 @@ const name = 'Home'
 </script>
 
 <template>
-  $END$
 </template>
 
 <style scoped>
