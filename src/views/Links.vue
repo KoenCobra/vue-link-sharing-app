@@ -1,8 +1,9 @@
 ﻿<script setup lang="ts">
-const name = 'Home'
+const name = 'Links'
 </script>
 
 <template>
+  <p>Links</p>
 </template>
 
 <style scoped>
