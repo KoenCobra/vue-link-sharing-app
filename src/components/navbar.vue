@@ -17,7 +17,7 @@
           </svg>
           <p>Links</p>
         </RouterLink>
-        <RouterLink to="/profile">
+        <RouterLink to="/profile" active-class="active">
           <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" fill="none" viewBox="0 0 21 20">
             <path fill="#737373"
                   d="M10.5 1.563A8.437 8.437 0 1 0 18.938 10 8.447 8.447 0 0 0 10.5 1.562ZM6.716 15.357a4.688 4.688 0 0 1 7.568 0 6.54 6.54 0 0 1-7.568 0Zm1.596-5.982a2.188 2.188 0 1 1 4.376 0 2.188 2.188 0 0 1-4.376 0Zm7.344 4.683a6.523 6.523 0 0 0-2.265-1.83 4.062 4.062 0 1 0-5.782 0 6.522 6.522 0 0 0-2.265 1.83 6.562 6.562 0 1 1 10.304 0h.008Z"/>
@@ -34,6 +34,7 @@
 
 <style scoped lang="scss">
 @import '@/assets/sass/variables';
+@import '@/assets/sass/mixins';
 
 .navbar {
   display: flex;
@@ -55,18 +56,28 @@
       color: $grey;
       font-size: 16px;
       font-weight: 600;
+      @include transition;
 
-      &.active {
-        color: $blue;
-
-        svg path {
-          fill: $blue;
-        }
+      &:hover {
+        color: $purple;
+      }
+      
+      &:hover svg path{
+        fill: $purple;
       }
 
-      img {
-        height: 1.25rem;
-        width: 1.25rem;
+      svg path{
+        @include transition;
+      }
+
+      &.active {
+        color: $purple;
+        background-color: $lightPurple;
+        border-radius: 8px;
+
+        svg path {
+          fill: $purple;
+        }
       }
     }
   }
