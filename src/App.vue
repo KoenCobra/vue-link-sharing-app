@@ -15,6 +15,3 @@ const {isLoading} = useAuth0()
     </component>
   </main>
 </template>
-
-<style scoped lang="scss">
-</style>
