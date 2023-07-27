@@ -1,10 +1,11 @@
 ﻿<script setup lang="ts">
+
 </script>
 
 <template>
-  <p>Links</p>
+  <slot/>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>
