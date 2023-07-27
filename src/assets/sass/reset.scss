@@ -7,6 +7,12 @@
   box-sizing: border-box;
 }
 
+button{
+  background-color: transparent;
+  outline: none;
+  border: 0;
+}
+
 /* Remove default margin */
 body,
 h1,
