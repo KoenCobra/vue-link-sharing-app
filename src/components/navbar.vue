@@ -35,7 +35,6 @@
 <style scoped lang="scss">
 @import '@/assets/sass/variables';
 @import '@/assets/sass/mixins';
-
 .navbar {
   display: flex;
   align-items: center;

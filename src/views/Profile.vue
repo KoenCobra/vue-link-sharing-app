@@ -3,7 +3,7 @@
 </script>
 
 <template>
-<p>test</p>
+  <p>profile</p>
 </template>
 
 <style scoped lang="scss">
