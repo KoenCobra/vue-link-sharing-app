@@ -81,5 +81,20 @@
       }
     }
   }
+  
+  .preview-btn{
+    padding: 0.6875rem 1.6875rem;
+    gap: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid $purple;
+    font-size: 1rem;
+    font-weight: 600;
+    @include transition;
+    color: $purple;
+    
+    &:hover{
+      background: $lightPurple;
+    }
+  }
 }
 </style>
