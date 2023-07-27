@@ -6,10 +6,14 @@ import App from './App.vue'
 import router from './router'
 
 import './assets/sass/styles.scss'
+import 'nprogress/nprogress.css'
+import progressBar from "@/includes/progress-bar";
 
-const app = createApp(App)
+progressBar(router);
 
-app.use(createPinia())
+const app = createApp(App);
+
+app.use(createPinia());
 app.use(router)
     .use(
         createAuth0({
@@ -19,6 +23,6 @@ app.use(router)
                 redirect_uri: import.meta.env.VITE_AUTH0_CALLBACK_URL,
             },
         })
-    )
+    );
 
-app.mount('#app')
+app.mount('#app');
