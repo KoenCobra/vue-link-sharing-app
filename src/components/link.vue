@@ -1,6 +1,7 @@
 ﻿<script setup lang="ts">
-
 import DropDown from "@/components/drop-down.vue";
+import {useDropdownStore} from "@/stores/dropdown";
+
 </script>
 
 <template>
@@ -15,8 +16,8 @@ import DropDown from "@/components/drop-down.vue";
     <div class="inputs">
       <div class="input-field">
         <label>Platform</label>
-        <input type="text">
-        <DropDown/>
+        <input type="text" @click.stop="useDropdownStore().toggleDropdown()">
+        <DropDown v-if="useDropdownStore().isDropdownVisible" @click="useDropdownStore().closeDropdown()"/>
       </div>
       <div class="input-field">
         <label>Link</label>
@@ -51,8 +52,8 @@ import DropDown from "@/components/drop-down.vue";
         font-weight: 700;
       }
     }
-    
-    .remove-btn{
+
+    .remove-btn {
       font-weight: 400;
       color: $grey;
     }
