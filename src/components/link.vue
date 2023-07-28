@@ -14,14 +14,19 @@ import {useDropdownStore} from "@/stores/dropdown";
       <button class="remove-btn">Remove</button>
     </div>
     <div class="inputs">
-      <div class="input-field">
+      <div class="input-field platform">
         <label>Platform</label>
-        <input type="text" @click.stop="useDropdownStore().toggleDropdown()">
+        <div class="input-icons">
+          <input type="text" @click.stop="useDropdownStore().toggleDropdown()">
+        </div>
         <DropDown v-if="useDropdownStore().isDropdownVisible" @click="useDropdownStore().closeDropdown()"/>
       </div>
       <div class="input-field">
         <label>Link</label>
-        <input type="text">
+        <div class="input-icons">
+          <img src="@/assets/images/icon-link.svg" alt="">
+          <input type="text">
+        </div>
       </div>
     </div>
   </div>
@@ -35,6 +40,7 @@ import {useDropdownStore} from "@/stores/dropdown";
 .link {
   padding: 1.25rem;
   background-color: $lightGrey;
+  border-radius: 12px;
 
   .link-header {
     display: flex;
