@@ -53,7 +53,6 @@
       align-items: center;
       gap: 0.5rem;
       color: $grey;
-      font-size: 16px;
       font-weight: 600;
       @include transition;
 
@@ -86,7 +85,6 @@
     gap: 0.5rem;
     border-radius: 8px;
     border: 1px solid $purple;
-    font-size: 1rem;
     font-weight: 600;
     @include transition;
     color: $purple;

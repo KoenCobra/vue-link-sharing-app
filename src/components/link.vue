@@ -1,5 +1,6 @@
 ﻿<script setup lang="ts">
 
+import DropDown from "@/components/drop-down.vue";
 </script>
 
 <template>
@@ -14,9 +15,8 @@
     <div class="inputs">
       <div class="input-field">
         <label>Platform</label>
-        <select>
-          <option value="GitHub">GitHub</option>
-        </select>
+        <input type="text">
+        <DropDown/>
       </div>
       <div class="input-field">
         <label>Link</label>
@@ -48,18 +48,14 @@
 
       p {
         color: $grey;
-        font-size: 1rem;
         font-weight: 700;
       }
     }
     
     .remove-btn{
-      font-size: 1rem;
       font-weight: 400;
       color: $grey;
     }
   }
-    
-
 }
 </style>

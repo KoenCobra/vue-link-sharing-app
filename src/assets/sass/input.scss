@@ -3,6 +3,7 @@
 .inputs {
   display: grid;
   gap: 0.75rem;
+  position: relative;
 
   .input-field {
     display: flex;
@@ -23,8 +24,8 @@
       border: 1px solid $borders;
       background: $white;
       outline: none;
-      
-      &:focus{
+
+      &:focus {
         border-color: $purple;
         box-shadow: 0 0 32px 0 rgba(99, 60, 255, 0.25);
       }
