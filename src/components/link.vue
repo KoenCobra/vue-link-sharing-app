@@ -20,7 +20,7 @@ const devLink = ref<DropdownItem>()
         <label>Platform</label>
         <div class="input-icons" @click.stop="useDropdownStore().toggleDropdown()">
           <img class="dev-link-icon" :src="useDropdownStore().dropdownItem.icon" alt="">
-          <input type="text" :value="useDropdownStore().dropdownItem.platform">
+          <input readonly type="text" :value="useDropdownStore().dropdownItem.platform">
           <img class="chevron" :class="useDropdownStore().isDropdownVisible ? 'flip' : ''"
                src="src/assets/images/icon-chevron-down.svg" alt="chevron">
         </div>
