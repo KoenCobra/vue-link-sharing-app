@@ -2,9 +2,7 @@
 import {useAuth0} from "@auth0/auth0-vue";
 import Navbar from "@/components/navbar.vue";
 import Phone from "@/components/phone.vue";
-import Config from "@/components/config.vue";
-
-const {isLoading, isAuthenticated} = useAuth0()
+const {isAuthenticated} = useAuth0()
 </script>
 
 <template>

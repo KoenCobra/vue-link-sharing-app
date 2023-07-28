@@ -80,11 +80,13 @@ const dropdownItems = ref<DropdownItem[]>([
   border: 1px solid $borders;
   box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.10);
   position: absolute;
-  bottom: -590px;
+  bottom: -240px;
   right: 0;
   left: 0;
   cursor: pointer;
   z-index: 1;
+  height: 20rem;
+  overflow-y: auto;
 
   .dropdown-item {
     display: flex;

@@ -16,11 +16,14 @@ import {useDropdownStore} from "@/stores/dropdown";
     <div class="inputs">
       <div class="input-field platform">
         <label>Platform</label>
-        <div class="input-icons">
-          <input type="text" @click.stop="useDropdownStore().toggleDropdown()">
-          <img class="chevron" :class="useDropdownStore().isDropdownVisible ? 'flip' : ''" src="src/assets/images/icon-chevron-down.svg" alt="chevron">
+        <div class="input-icons" @click.stop="useDropdownStore().toggleDropdown()">
+          <input type="text">
+          <img class="chevron" :class="useDropdownStore().isDropdownVisible ? 'flip' : ''"
+               src="src/assets/images/icon-chevron-down.svg" alt="chevron">
         </div>
-        <DropDown v-if="useDropdownStore().isDropdownVisible" @click="useDropdownStore().closeDropdown()"/>
+        <transition>
+          <DropDown v-if="useDropdownStore().isDropdownVisible" @click="useDropdownStore().closeDropdown()"/>
+        </transition>
       </div>
       <div class="input-field">
         <label>Link</label>
@@ -65,5 +68,14 @@ import {useDropdownStore} from "@/stores/dropdown";
       color: $grey;
     }
   }
+}
+
+.v-enter-active, .v-leave-active {
+  transition: all 0.2s ease-out;
+}
+.v-enter-from,
+.v-leave-to {
+  transform: translateY(20px);
+  opacity: 0;
 }
 </style>
