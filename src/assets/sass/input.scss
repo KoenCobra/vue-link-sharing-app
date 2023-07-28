@@ -1,4 +1,5 @@
 ﻿@import "variables";
+@import "mixins";
 
 .inputs {
   display: grid;
@@ -51,6 +52,11 @@
         right: 0.75rem;
         top: 50%;
         transform: translateY(-50%);
+        transition: all 0.2s linear;
+        
+        &.flip{
+          transform: rotateY(180deg) rotateX(180deg) translateY(50%);
+        }
       }
     }
   }

@@ -18,7 +18,7 @@ import {useDropdownStore} from "@/stores/dropdown";
         <label>Platform</label>
         <div class="input-icons">
           <input type="text" @click.stop="useDropdownStore().toggleDropdown()">
-          <img class="chevron" :src="useDropdownStore().isDropdownVisible ? 'src/assets/images/icon-chevron-down.svg' : 'src/assets/images/icon-chevron-down.svg'" alt="">
+          <img class="chevron" :class="useDropdownStore().isDropdownVisible ? 'flip' : ''" src="src/assets/images/icon-chevron-down.svg" alt="chevron">
         </div>
         <DropDown v-if="useDropdownStore().isDropdownVisible" @click="useDropdownStore().closeDropdown()"/>
       </div>
