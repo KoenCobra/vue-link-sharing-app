@@ -18,13 +18,14 @@ import {useDropdownStore} from "@/stores/dropdown";
         <label>Platform</label>
         <div class="input-icons">
           <input type="text" @click.stop="useDropdownStore().toggleDropdown()">
+          <img class="chevron" :src="useDropdownStore().isDropdownVisible ? 'src/assets/images/icon-chevron-down.svg' : 'src/assets/images/icon-chevron-down.svg'" alt="">
         </div>
         <DropDown v-if="useDropdownStore().isDropdownVisible" @click="useDropdownStore().closeDropdown()"/>
       </div>
       <div class="input-field">
         <label>Link</label>
         <div class="input-icons">
-          <img src="@/assets/images/icon-link.svg" alt="">
+          <img class="link-icon" src="@/assets/images/icon-link.svg" alt="">
           <input type="text">
         </div>
       </div>

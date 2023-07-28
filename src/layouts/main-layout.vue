@@ -8,8 +8,7 @@ const {isLoading, isAuthenticated} = useAuth0()
 </script>
 
 <template>
-
-  <div>
+  <div class="main">
     <template v-if="isAuthenticated">
       <Navbar/>
       <div class="main-grid">
@@ -21,10 +20,17 @@ const {isLoading, isAuthenticated} = useAuth0()
 </template>
 
 <style scoped lang="scss">
-.main-grid {
-  margin-top: 2rem;
-  display: grid;
-  grid-template-columns: 32rem auto;
-  gap: 2rem;
+
+.main {
+  padding: 1.5rem;
+  max-width: 1400px;
+  margin-inline: auto;
+
+  .main-grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 32rem auto;
+    gap: 2rem;
+  }
 }
 </style>

@@ -15,9 +15,14 @@ function closeDropdown() {
   <div v-if="isLoading">
     loading...
   </div>
-  <main  v-else>
-    <component @click="closeDropdown" :is="$route.meta.layout || 'div'">
+  <main @click="closeDropdown" v-else>
+    <component :is="$route.meta.layout || 'div'">
       <RouterView/>
     </component>
   </main>
 </template>
+
+<style>
+main {
+}
+</style>

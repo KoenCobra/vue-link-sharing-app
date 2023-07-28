@@ -4,7 +4,7 @@
   display: grid;
   gap: 0.75rem;
   position: relative;
-  
+
   .input-field {
     display: flex;
     flex-direction: column;
@@ -19,7 +19,7 @@
       cursor: pointer;
     }
 
-    input{
+    input {
       padding: 0.75rem 1rem 0.75rem 2.2rem;
       color: $darkGrey;
       font-size: 1rem;
@@ -35,14 +35,21 @@
         box-shadow: 0 0 32px 0 rgba(99, 60, 255, 0.25);
       }
     }
-    
-    .input-icons{
+
+    .input-icons {
       position: relative;
-      
-      img{
+
+      .link-icon {
         position: absolute;
         top: 50%;
         left: 0.75rem;
+        transform: translateY(-50%);
+      }
+
+      .chevron {
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
         transform: translateY(-50%);
       }
     }
