@@ -1,7 +1,9 @@
 ﻿<script setup lang="ts">
 import DropDown from "@/components/drop-down.vue";
 import {useDropdownStore} from "@/stores/dropdown";
-
+import {ref} from "vue";
+import type {DropdownItem} from "@/interfaces/dropdown-item";
+const devLink = ref<DropdownItem>()
 </script>
 
 <template>
@@ -17,7 +19,8 @@ import {useDropdownStore} from "@/stores/dropdown";
       <div class="input-field platform">
         <label>Platform</label>
         <div class="input-icons" @click.stop="useDropdownStore().toggleDropdown()">
-          <input type="text">
+          <img class="dev-link-icon" :src="useDropdownStore().dropdownItem.icon" alt="">
+          <input type="text" :value="useDropdownStore().dropdownItem.platform">
           <img class="chevron" :class="useDropdownStore().isDropdownVisible ? 'flip' : ''"
                src="src/assets/images/icon-chevron-down.svg" alt="chevron">
         </div>

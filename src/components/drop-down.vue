@@ -1,6 +1,7 @@
 ﻿<script setup lang="ts">
 import {ref} from "vue";
 import type {DropdownItem} from "@/interfaces/dropdown-item";
+import {useDropdownStore} from "@/stores/dropdown";
 
 const dropdownItems = ref<DropdownItem[]>([
   {
@@ -60,7 +61,7 @@ const dropdownItems = ref<DropdownItem[]>([
 
 <template>
   <div class="dropdown">
-    <div class="dropdown-item" v-for="item in dropdownItems" :key="item.platform">
+    <div class="dropdown-item" v-for="item in dropdownItems" :key="item.platform" @click="useDropdownStore().setDropdownItem(item)">
       <div class="dropdown-item-logo">
         <img :src="item.icon" alt="devIcon">
         <p>{{ item.platform }}</p>

@@ -1,5 +1,6 @@
 ﻿<script setup lang="ts">
 
+import {useDropdownStore} from "../stores/dropdown";
 </script>
 
 <template>
@@ -30,6 +31,6 @@
   border-radius: 12px;
   display: grid;
   justify-content: center;
-  padding-block: 6rem;
+  padding-block: 4rem;
 }
 </style>
