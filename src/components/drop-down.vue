@@ -25,10 +25,6 @@ const dropdownItems = ref<DropdownItem[]>([
     platform: 'Frontend Mentor'
   },
   {
-    icon: 'src/assets/images/icon-youtube.svg',
-    platform: 'YouTube'
-  },
-  {
     icon: 'src/assets/images/icon-codepen.svg',
     platform: 'Code Pen'
   },
@@ -62,7 +58,7 @@ const dropdownItems = ref<DropdownItem[]>([
 <template>
   <div class="dropdown">
     <div class="dropdown-item" v-for="item in dropdownItems" :key="item.platform" @click="useDropdownStore().setDropdownItem(item)">
-      <div class="dropdown-item-logo">
+      <div class="dropdown-item-logo" :class="useDropdownStore().dropdownItem.platform === item.platform ? 'selectedItem' : ''">
         <img :src="item.icon" alt="devIcon">
         <p>{{ item.platform }}</p>
       </div>
@@ -100,6 +96,15 @@ const dropdownItems = ref<DropdownItem[]>([
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      
+      &.selectedItem{
+        color: $purple;
+        font-weight: 400;
+        
+        img{
+          filter: brightness(0) saturate(100%) invert(23%) sepia(66%) saturate(5173%) hue-rotate(248deg) brightness(100%) contrast(100%);
+        }
+      }
     }
 
     .divider {
