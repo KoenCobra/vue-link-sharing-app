@@ -1,4 +1,5 @@
 ﻿<script setup lang="ts">
+import Link from "@/components/link.vue";
 </script>
 
 <template>
@@ -11,6 +12,7 @@
       <button class="add-new-link-btn">
         + Add new link
       </button>
+      <Link/>
     </div>
 
   </div>
