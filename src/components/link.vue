@@ -9,7 +9,10 @@ const dropdownStore = useDropdownStore();
 
 const schema = Yup.object().shape({
   platform: Yup.string().required("Can't be empty"),
-  url: Yup.string().required("Can't be empty").url()
+  url: Yup.string().required("Can't be empty").url('Must be a valid URL').test(
+      'contains-platform',
+      'Please check the URL',
+      (value) => value && value.toLowerCase().includes(dropdownStore.dropdownItem.platform.toLowerCase()))
 })
 
 const formValues = ref({
