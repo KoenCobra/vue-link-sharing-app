@@ -1,9 +1,10 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import { createAuth0 } from "@auth0/auth0-vue";
-
+import {createApp} from 'vue'
+import {createPinia} from 'pinia'
+import {createAuth0} from "@auth0/auth0-vue";
+import PrimeVue from 'primevue/config';
 import App from './App.vue'
 import router from './router'
+import "primevue/resources/themes/lara-light-indigo/theme.css";
 
 import './assets/sass/styles.scss'
 import 'nprogress/nprogress.css'
@@ -14,6 +15,7 @@ progressBar(router);
 const app = createApp(App);
 
 app.use(createPinia());
+app.use(PrimeVue);
 app.use(router)
     .use(
         createAuth0({

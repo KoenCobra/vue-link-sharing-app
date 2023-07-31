@@ -1,5 +1,10 @@
 ﻿<script setup lang="ts">
 import Link from "@/components/link.vue";
+import {useProfileLinkStore} from "@/stores/profile-link";
+const profileLinkStore = useProfileLinkStore();
+function addLink(){
+  profileLinkStore.addProfileLink(null);
+}
 </script>
 
 <template>
@@ -9,11 +14,10 @@ import Link from "@/components/link.vue";
       <p class="subtitle">
         Add/edit/remove links below and then share all your profiles with the world!
       </p>
-      <button class="add-new-link-btn">
+      <button @click="addLink" class="add-new-link-btn">
         + Add new link
       </button>
-      
-      <Link/>
+      <Link v-for="(profileLink, index) in profileLinkStore.profileLinks" :profileLinkIndex="index"/>
     </div>
 
   </div>

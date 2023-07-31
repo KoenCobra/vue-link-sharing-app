@@ -1,31 +1,80 @@
 ﻿<script setup lang="ts">
-import DropDown from "@/components/drop-down.vue";
-import {useDropdownStore} from "@/stores/dropdown";
 import * as Yup from 'yup';
-import { Form, Field } from 'vee-validate';
-import {ref, watch} from "vue";
+import {Form, Field} from 'vee-validate';
+import {ref} from "vue";
+import {useProfileLinkStore} from "@/stores/profile-link";
+import type {DropdownItem} from "@/interfaces/dropdown-item";
+import Dropdown from 'primevue/dropdown';
 
-const dropdownStore = useDropdownStore();
+const profileLinkStore = useProfileLinkStore();
+let selectedPlatform = ref<DropdownItem>({platform: '', icon: ''});
+const dropdownItems = ref<DropdownItem[]>([
+  {
+    icon: 'src/assets/images/icon-github.svg',
+    platform: 'GitHub'
+  },
+  {
+    icon: 'src/assets/images/icon-youtube.svg',
+    platform: 'YouTube'
+  },
+  {
+    icon: 'src/assets/images/icon-linkedin.svg',
+    platform: 'LinkedIn'
+  },
+  {
+    icon: 'src/assets/images/icon-facebook.svg',
+    platform: 'Facebook'
+  },
+  {
+    icon: 'src/assets/images/icon-frontend-mentor.svg',
+    platform: 'Frontend Mentor'
+  },
+  {
+    icon: 'src/assets/images/icon-codepen.svg',
+    platform: 'Code Pen'
+  },
+  {
+    icon: 'src/assets/images/icon-codewars.svg',
+    platform: 'Code Wars'
+  },
+  {
+    icon: 'src/assets/images/icon-gitlab.svg',
+    platform: 'GitLab'
+  },
+  {
+    icon: 'src/assets/images/icon-hashnode.svg',
+    platform: 'HashNode'
+  },
+  {
+    icon: 'src/assets/images/icon-stack-overflow.svg',
+    platform: 'Stack Overflow'
+  },
+  {
+    icon: 'src/assets/images/icon-twitch.svg',
+    platform: 'Twitch'
+  },
+  {
+    icon: 'src/assets/images/icon-twitter.svg',
+    platform: 'twitter'
+  },
+])
+
+const props = defineProps({
+  profileLinkIndex: Number
+})
 
 const schema = Yup.object().shape({
   platform: Yup.string().required("Can't be empty"),
   url: Yup.string().required("Can't be empty").url('Must be a valid URL').test(
       'contains-platform',
       'Please check the URL',
-      (value) => value && value.toLowerCase().includes(dropdownStore.dropdownItem.platform.toLowerCase()))
+      (value) => value && value.toLowerCase().includes(selectedPlatform.value.platform.toLowerCase()))
 })
 
-const formValues = ref({
-  platform: dropdownStore.dropdownItem.platform,
-})
-
-watch(() => dropdownStore.dropdownItem.platform, (newVal) => {
-  formValues.value.platform = newVal;
-});
-
-function onSubmit(values) {
-  console.log(values)
+function onSubmit() {
+  
 }
+
 </script>
 
 <template>
@@ -35,37 +84,56 @@ function onSubmit(values) {
         <img src="@/assets/images/icon-drag-and-drop.svg" alt="">
         <p>Link #1</p>
       </div>
-      <button class="remove-btn">Remove</button>
+      <button @click="profileLinkStore.removeProfileLink(props.profileLinkIndex)" class="remove-btn">Remove</button>
     </div>
     <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors }">
       <div class="inputs">
         <div class="input-field platform">
           <label>Platform</label>
-          <div class="input-icons" @click.stop="dropdownStore.toggleDropdown()">
-            <img class="dev-link-icon" :src="dropdownStore.dropdownItem.icon" alt="">
-            <Field name="platform" readonly type="text" v-model="formValues.platform"
-                   :class="{ 'is-invalid': errors.platform }">
-            </Field>
-            <div class="invalid-feedback invalid-dropdown">{{errors.platform}}</div>
-            <img class="chevron" :class="{flip: dropdownStore.isDropdownVisible}"
-                 src="src/assets/images/icon-chevron-down.svg" alt="chevron">
+          <div class="input-icons">
+            <Dropdown
+                v-model="selectedPlatform"
+                :options="dropdownItems"
+                optionLabel="platform"
+                placeholder="Select a platform"
+                class="dropdown"
+            >
+              <template #value="slotProps">
+                <div v-if="slotProps.value" class="dropdown-value">
+                  <img
+                      :alt="slotProps.value.icon"
+                      :src="slotProps.value.icon"
+                  />
+                  <div>{{ slotProps.value.platform }}</div>
+                </div>
+                <span v-else>
+                   {{ slotProps.placeholder }}
+                </span>
+              </template>
+              <template #option="slotProps">
+                <div class="dropdown-option">
+                  <img
+                      :alt="slotProps.option.icon"
+                      :src="slotProps.option.icon"
+                  />
+                  <div>{{ slotProps.option.platform }}</div>
+                </div>
+              </template>
+            </Dropdown>
           </div>
-          <transition>
-            <DropDown v-if="dropdownStore.isDropdownVisible" @click="dropdownStore.closeDropdown()"/>
-          </transition>
         </div>
         <div class="input-field">
           <label>Link</label>
           <div class="input-icons">
             <img class="link-icon" src="@/assets/images/icon-link.svg" alt="">
             <Field type="text" name="url" :class="{ 'is-invalid': errors.url }">
-              
+
             </Field>
-            <div class="invalid-feedback">{{errors.url}}</div>
+            <div class="invalid-feedback">{{ errors.url }}</div>
           </div>
         </div>
       </div>
-      <button type="submit" > test submit</button>
+      <button type="submit"> test submit</button>
     </Form>
   </div>
 </template>
