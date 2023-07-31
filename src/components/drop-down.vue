@@ -57,12 +57,12 @@ const dropdownItems = ref<DropdownItem[]>([
 
 <template>
   <div class="dropdown">
-    <div class="dropdown-item" v-for="item in dropdownItems" :key="item.platform" @click="useDropdownStore().setDropdownItem(item)">
-      <div class="dropdown-item-logo" :class="useDropdownStore().dropdownItem.platform === item.platform ? 'selectedItem' : ''">
+    <div class="dropdown-item" v-for="(item, index) in dropdownItems" :key="item.platform" @click="useDropdownStore().setDropdownItem(item)">
+      <div class="dropdown-item-logo" :class="{ 'selected-item': useDropdownStore().dropdownItem.platform === item.platform }">
         <img :src="item.icon" alt="devIcon">
         <p>{{ item.platform }}</p>
       </div>
-      <div class="divider"></div>
+      <div class="divider" v-if="index < dropdownItems.length - 1"></div>
     </div>
   </div>
 </template>
@@ -97,7 +97,7 @@ const dropdownItems = ref<DropdownItem[]>([
       align-items: center;
       gap: 0.75rem;
       
-      &.selectedItem{
+      &.selected-item{
         color: $purple;
         font-weight: 400;
         

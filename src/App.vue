@@ -23,6 +23,5 @@ function closeDropdown() {
 </template>
 
 <style>
-main {
-}
+
 </style>

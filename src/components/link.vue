@@ -1,9 +1,8 @@
 ﻿<script setup lang="ts">
 import DropDown from "@/components/drop-down.vue";
 import {useDropdownStore} from "@/stores/dropdown";
-import {ref} from "vue";
-import type {DropdownItem} from "@/interfaces/dropdown-item";
-const devLink = ref<DropdownItem>()
+
+const dropdownStore = useDropdownStore();
 </script>
 
 <template>
@@ -18,14 +17,14 @@ const devLink = ref<DropdownItem>()
     <div class="inputs">
       <div class="input-field platform">
         <label>Platform</label>
-        <div class="input-icons" @click.stop="useDropdownStore().toggleDropdown()">
-          <img class="dev-link-icon" :src="useDropdownStore().dropdownItem.icon" alt="">
-          <input readonly type="text" :value="useDropdownStore().dropdownItem.platform">
-          <img class="chevron" :class="useDropdownStore().isDropdownVisible ? 'flip' : ''"
+        <div class="input-icons" @click.stop="dropdownStore.toggleDropdown()">
+          <img class="dev-link-icon" :src="dropdownStore.dropdownItem.icon" alt="">
+          <input readonly type="text" :value="dropdownStore.dropdownItem.platform">
+          <img class="chevron" :class="{flip: dropdownStore.isDropdownVisible}"
                src="src/assets/images/icon-chevron-down.svg" alt="chevron">
         </div>
         <transition>
-          <DropDown v-if="useDropdownStore().isDropdownVisible" @click="useDropdownStore().closeDropdown()"/>
+          <DropDown v-if="dropdownStore.isDropdownVisible" @click="dropdownStore.closeDropdown()" />
         </transition>
       </div>
       <div class="input-field">
