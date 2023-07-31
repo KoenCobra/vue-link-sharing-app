@@ -1,8 +1,28 @@
 ﻿<script setup lang="ts">
 import DropDown from "@/components/drop-down.vue";
 import {useDropdownStore} from "@/stores/dropdown";
+import * as Yup from 'yup';
+import { Form, Field } from 'vee-validate';
+import {ref, watch} from "vue";
 
 const dropdownStore = useDropdownStore();
+
+const schema = Yup.object().shape({
+  platform: Yup.string().required("Can't be empty"),
+  url: Yup.string().required("Can't be empty").url()
+})
+
+const formValues = ref({
+  platform: dropdownStore.dropdownItem.platform,
+})
+
+watch(() => dropdownStore.dropdownItem.platform, (newVal) => {
+  formValues.value.platform = newVal;
+});
+
+function onSubmit(values) {
+  console.log(values)
+}
 </script>
 
 <template>
@@ -14,27 +34,36 @@ const dropdownStore = useDropdownStore();
       </div>
       <button class="remove-btn">Remove</button>
     </div>
-    <div class="inputs">
-      <div class="input-field platform">
-        <label>Platform</label>
-        <div class="input-icons" @click.stop="dropdownStore.toggleDropdown()">
-          <img class="dev-link-icon" :src="dropdownStore.dropdownItem.icon" alt="">
-          <input readonly type="text" :value="dropdownStore.dropdownItem.platform">
-          <img class="chevron" :class="{flip: dropdownStore.isDropdownVisible}"
-               src="src/assets/images/icon-chevron-down.svg" alt="chevron">
+    <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors }">
+      <div class="inputs">
+        <div class="input-field platform">
+          <label>Platform</label>
+          <div class="input-icons" @click.stop="dropdownStore.toggleDropdown()">
+            <img class="dev-link-icon" :src="dropdownStore.dropdownItem.icon" alt="">
+            <Field name="platform" readonly type="text" v-model="formValues.platform"
+                   :class="{ 'is-invalid': errors.platform }">
+            </Field>
+            <div class="invalid-feedback">{{errors.platform}}</div>
+            <img class="chevron" :class="{flip: dropdownStore.isDropdownVisible}"
+                 src="src/assets/images/icon-chevron-down.svg" alt="chevron">
+          </div>
+          <transition>
+            <DropDown v-if="dropdownStore.isDropdownVisible" @click="dropdownStore.closeDropdown()"/>
+          </transition>
         </div>
-        <transition>
-          <DropDown v-if="dropdownStore.isDropdownVisible" @click="dropdownStore.closeDropdown()" />
-        </transition>
-      </div>
-      <div class="input-field">
-        <label>Link</label>
-        <div class="input-icons">
-          <img class="link-icon" src="@/assets/images/icon-link.svg" alt="">
-          <input type="text">
+        <div class="input-field">
+          <label>Link</label>
+          <div class="input-icons">
+            <img class="link-icon" src="@/assets/images/icon-link.svg" alt="">
+            <Field type="text" name="url" :class="{ 'is-invalid': errors.url }">
+              
+            </Field>
+            <div class="invalid-feedback">{{errors.url}}</div>
+          </div>
         </div>
       </div>
-    </div>
+      <button type="submit" > test submit</button>
+    </Form>
   </div>
 </template>
 
@@ -75,6 +104,7 @@ const dropdownStore = useDropdownStore();
 .v-enter-active, .v-leave-active {
   transition: all 0.2s ease-out;
 }
+
 .v-enter-from,
 .v-leave-to {
   transform: translateY(20px);
