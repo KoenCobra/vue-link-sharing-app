@@ -43,7 +43,7 @@ function onSubmit(values) {
             <Field name="platform" readonly type="text" v-model="formValues.platform"
                    :class="{ 'is-invalid': errors.platform }">
             </Field>
-            <div class="invalid-feedback">{{errors.platform}}</div>
+            <div class="invalid-feedback invalid-dropdown">{{errors.platform}}</div>
             <img class="chevron" :class="{flip: dropdownStore.isDropdownVisible}"
                  src="src/assets/images/icon-chevron-down.svg" alt="chevron">
           </div>
