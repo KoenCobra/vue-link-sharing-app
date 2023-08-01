@@ -7,7 +7,7 @@ import type {DropdownItem} from "@/interfaces/dropdown-item";
 import Dropdown from 'primevue/dropdown';
 
 const profileLinkStore = useProfileLinkStore();
-let selectedPlatform = ref<DropdownItem>({platform: '', icon: ''});
+let selectedPlatform = ref<DropdownItem>();
 const dropdownItems = ref<DropdownItem[]>([
   {
     icon: 'src/assets/images/icon-github.svg',
@@ -68,7 +68,7 @@ const schema = Yup.object().shape({
   url: Yup.string().required("Can't be empty").url('Must be a valid URL').test(
       'contains-platform',
       'Please check the URL',
-      (value) => value && value.toLowerCase().includes(selectedPlatform.value.platform.toLowerCase()))
+      (value) => value && value.toLowerCase().includes(selectedPlatform.value?.platform.toLowerCase()))
 })
 
 function onSubmit() {
