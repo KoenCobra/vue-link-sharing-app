@@ -50,21 +50,10 @@
       border-color: $purple;
       box-shadow: 0 0 32px 0 rgba(99, 60, 255, 0.25);
     }
-
-    .dropdown-option {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .dropdown-value {
-      display: flex;
-      gap: 0.5rem;
-    }
-
     
-    .p-dropdown-items{
-      
-      max-height: 500px;
+    .dropdown-value{
+      display: flex;
+      gap: 0.5rem;
     }
 
     .input-icons {

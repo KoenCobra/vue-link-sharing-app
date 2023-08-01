@@ -68,11 +68,11 @@ const schema = Yup.object().shape({
   url: Yup.string().required("Can't be empty").url('Must be a valid URL').test(
       'contains-platform',
       'Please check the URL',
-      (value) => value && value.toLowerCase().includes(selectedPlatform.value?.platform.toLowerCase()))
+      (value) => value && value.toLowerCase().replace(/\s/g, '').includes(selectedPlatform.value?.platform.toLowerCase().replace(/\s/g, '')))
 })
 
 function onSubmit() {
-  
+
 }
 
 </script>
@@ -111,7 +111,7 @@ function onSubmit() {
                 </span>
               </template>
               <template #option="slotProps">
-                <div class="dropdown-option">
+                <div style="display:flex; gap:0.5rem">
                   <img
                       :alt="slotProps.option.icon"
                       :src="slotProps.option.icon"
