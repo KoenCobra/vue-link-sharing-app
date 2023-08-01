@@ -128,8 +128,6 @@ function setPlaceholder(event) {
           <div class="input-icons">
             <Dropdown
               @change="setPlaceholder"
-              aria-describedby="dd-error"
-              id="dd"
               v-model="dropdownValue"
               :options="dropdownItems"
               optionLabel="platform"
