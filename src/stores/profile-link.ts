@@ -10,7 +10,6 @@ export const useProfileLinkStore = defineStore('profileLink', () => {
             platform: profileLink,
             url: ''
         })
-    console.log(profileLinks.value)
     }
 
 
