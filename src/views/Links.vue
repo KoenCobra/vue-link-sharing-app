@@ -24,9 +24,6 @@ function addLink() {
         :profileLinkIndex="index"
         :key="profileLink.url"
       />
-      <div class="save-btn-section">
-        <button class="save-btn" type="submit">Save</button>
-      </div>
     </div>
   </div>
 </template>
@@ -73,20 +70,6 @@ function addLink() {
   .links {
     display: grid;
     gap: 1.5rem;
-  }
-
-  .save-btn-section {
-    display: flex;
-    justify-content: right;
-
-    .save-btn {
-      padding: 0.6875rem 1.6875rem;
-      background-color: $purple;
-      color: $white;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-    }
   }
 }
 </style>
