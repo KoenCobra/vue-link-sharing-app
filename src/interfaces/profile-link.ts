@@ -1,6 +1,7 @@
-﻿import type {DropdownItem} from "@/interfaces/dropdown-item";
+﻿import type { DropdownItem } from '@/interfaces/dropdown-item'
 
-export interface ProfileLink{
-    platform: DropdownItem,
-    url:string
+export interface ProfileLink {
+  id: number
+  platform: DropdownItem
+  url: string
 }
