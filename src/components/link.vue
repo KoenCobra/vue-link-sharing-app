@@ -1,6 +1,6 @@
 ﻿<script setup lang="ts">
 import * as Yup from 'yup'
-import { Field, useForm, useField } from 'vee-validate'
+import { useForm, useField } from 'vee-validate'
 import { ref } from 'vue'
 import { useProfileLinkStore } from '@/stores/profile-link'
 import type { DropdownItem } from '@/interfaces/dropdown-item'
@@ -97,7 +97,13 @@ async function validateTextField(value) {
 }
 
 const onSubmit = handleSubmit((values) => {
-  console.log(values.value)
+  profileLinkStore.updateProfileLink(
+    {
+      platform: values.value,
+      url: values.url
+    },
+    props.profileLinkIndex
+  )
 })
 
 function setPlaceholder(event) {
@@ -121,59 +127,60 @@ function setPlaceholder(event) {
         Remove
       </button>
     </div>
-    <div class="inputs">
-      <div class="input-field platform">
-        <label>Platform</label>
-        <div class="input-icons">
-          <Dropdown
-            @change="setPlaceholder"
-            v-model="dropdownValue"
-            :options="dropdownItems"
-            optionLabel="platform"
-            placeholder="Select a platform"
-            class="dropdown"
-            :class="{ 'p-invalid': dropError }"
-          >
-            <template #value="slotProps">
-              <div v-if="slotProps.value" class="dropdown-value">
-                <img :alt="slotProps.value.icon" :src="slotProps.value.icon" />
-                <div>{{ slotProps.value.platform }}</div>
-              </div>
-              <span v-else>
-                {{ slotProps.placeholder }}
-              </span>
-            </template>
-            <template #option="slotProps">
-              <div style="display: flex; gap: 0.5rem">
-                <img :alt="slotProps.option.icon" :src="slotProps.option.icon" />
-                <div>{{ slotProps.option.platform }}</div>
-              </div>
-            </template>
-          </Dropdown>
-          <small class="p-error invalid-feedback invalid-dropdown" id="dd-error">{{
-            dropError || '&nbsp;'
-          }}</small>
+    <form @submit.prevent="onSubmit">
+      <div class="inputs">
+        <div class="input-field platform">
+          <label>Platform</label>
+          <div class="input-icons">
+            <Dropdown
+              @change="setPlaceholder"
+              v-model="dropdownValue"
+              :options="dropdownItems"
+              optionLabel="platform"
+              placeholder="Select a platform"
+              class="dropdown"
+              :class="{ 'p-invalid': dropError }"
+            >
+              <template #value="slotProps">
+                <div v-if="slotProps.value" class="dropdown-value">
+                  <img :alt="slotProps.value.icon" :src="slotProps.value.icon" />
+                  <div>{{ slotProps.value.platform }}</div>
+                </div>
+                <span v-else>
+                  {{ slotProps.placeholder }}
+                </span>
+              </template>
+              <template #option="slotProps">
+                <div style="display: flex; gap: 0.5rem">
+                  <img :alt="slotProps.option.icon" :src="slotProps.option.icon" />
+                  <div>{{ slotProps.option.platform }}</div>
+                </div>
+              </template>
+            </Dropdown>
+            <small class="p-error invalid-feedback invalid-dropdown" id="dd-error">{{
+              dropError || '&nbsp;'
+            }}</small>
+          </div>
+        </div>
+        <div class="input-field">
+          <label>Link</label>
+          <div class="input-icons">
+            <img class="link-icon" src="@/assets/images/icon-link.svg" alt="" />
+            <input
+              v-model="urlValue"
+              type="text"
+              name="url"
+              :class="{ 'is-invalid': urlError }"
+              :placeholder="placeholder"
+            />
+            <div class="invalid-feedback">{{ urlError }}</div>
+          </div>
         </div>
       </div>
-      <div class="input-field">
-        <label>Link</label>
-        <div class="input-icons">
-          <img class="link-icon" src="@/assets/images/icon-link.svg" alt="" />
-          <Field
-            v-model="urlValue"
-            type="text"
-            name="url"
-            :class="{ 'is-invalid': urlError }"
-            :placeholder="placeholder"
-          >
-          </Field>
-          <div class="invalid-feedback">{{ urlError }}</div>
-        </div>
+      <div class="save-btn-section">
+        <button class="save-btn" type="submit">Save</button>
       </div>
-    </div>
-  </div>
-  <div class="save-btn-section">
-    <button class="save-btn" @click="onSubmit" type="submit">Save</button>
+    </form>
   </div>
 </template>
 
@@ -222,6 +229,7 @@ function setPlaceholder(event) {
     border-radius: 8px;
     font-size: 1rem;
     font-weight: 600;
+    margin-top: 1.5rem;
   }
 }
 

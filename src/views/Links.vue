@@ -22,7 +22,7 @@ function addLink() {
       <Link
         v-for="(profileLink, index) in profileLinkStore.profileLinks"
         :profileLinkIndex="index"
-        :key="profileLink.url"
+        :key="index"
       />
     </div>
   </div>

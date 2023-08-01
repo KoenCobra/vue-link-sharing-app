@@ -12,9 +12,15 @@ export const useProfileLinkStore = defineStore('profileLink', () => {
     })
   }
 
+  function updateProfileLink(profileLink: ProfileLink, index: number) {
+    console.log(profileLink, index)
+    profileLinks.value[index].url = profileLink.url
+    profileLinks.value[index].platform = profileLink.platform
+  }
+
   function removeProfileLink(linkIndex: any) {
     profileLinks.value?.splice(linkIndex, 1)
   }
 
-  return { profileLinks, addProfileLink, removeProfileLink }
+  return { profileLinks, addProfileLink, removeProfileLink, updateProfileLink }
 })
