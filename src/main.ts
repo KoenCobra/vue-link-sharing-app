@@ -15,7 +15,7 @@ progressBar(router);
 const app = createApp(App);
 
 app.use(createPinia());
-app.use(PrimeVue);
+app.use(PrimeVue, {ripple:true});
 app.use(router)
     .use(
         createAuth0({

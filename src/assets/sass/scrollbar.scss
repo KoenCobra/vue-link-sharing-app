@@ -1,11 +1,11 @@
 ﻿@import "variables";
-::-webkit-scrollbar {
+body::-webkit-scrollbar {
   width: 7px;
 }
 
-body::-webkit-scrollbar-track, .dropdown::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track {
 }
 
-body::-webkit-scrollbar-thumb, .dropdown::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb{
   background-color: $purpleHoverColor;
 }
