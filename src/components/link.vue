@@ -7,7 +7,7 @@ import type {DropdownItem} from "@/interfaces/dropdown-item";
 import Dropdown from 'primevue/dropdown';
 
 const profileLinkStore = useProfileLinkStore();
-let selectedPlatform = ref<DropdownItem>();
+let placeholder: string = '';
 const dropdownItems = ref<DropdownItem[]>([
   {
     icon: 'src/assets/images/icon-github.svg',
@@ -58,33 +58,46 @@ const dropdownItems = ref<DropdownItem[]>([
     platform: 'twitter'
   },
 ])
-
 const props = defineProps({
   profileLinkIndex: Number
 })
 
-const schema = Yup.object().shape({
-  platform: Yup.string().required("Can't be empty"),
-  url: Yup.string().required("Can't be empty").url('Must be a valid URL').test(
-      'contains-platform',
-      'Please check the URL',
-      (value) => value && value.toLowerCase().replace(/\s/g, '').includes(selectedPlatform.value?.platform.toLowerCase().replace(/\s/g, '')))
-})
+const {handleSubmit} = useForm();
+const {value: dropdownValue, errorMessage: dropError} = useField('value', validateDropdownField);
+const {value: urlValue, errorMessage: urlError} = useField('url', validateTextField);
 
-const { handleSubmit } = useForm();
-const { value, errorMessage } = useField('value', validateField);
-
-function validateField(value) {
+function validateDropdownField(value) {
   if (!value) {
-    return 'platform is required.';
+    return 'Platform is required.';
   }
-
   return true;
 }
 
+async function validateTextField(value) {
+  const urlSchema = Yup.string()
+      .required("Can't be empty")
+      .url('Must be a valid URL')
+      .test(
+          'contains-platform',
+          `URL must contain ${dropdownValue.value?.platform.toLowerCase().replace(/\s/g, '')}`,
+          (value) => value && value.toLowerCase().replace(/\s/g, '').includes(dropdownValue.value?.platform.toLowerCase().replace(/\s/g, ''))
+      );
+
+  try {
+    await urlSchema.validate(value);
+    return true;
+  } catch (error) {
+    return error.message;
+  }
+}
+
 const onSubmit = handleSubmit((values) => {
-    console.log(values.value)
+  console.log(values.value)
 });
+
+function setPlaceholder(event) {
+  placeholder = `e.g. https://www.${event.value.platform.toLowerCase().replace(/\s/g, '')}com/benwright`
+}
 
 </script>
 
@@ -97,20 +110,21 @@ const onSubmit = handleSubmit((values) => {
       </div>
       <button @click="profileLinkStore.removeProfileLink(props.profileLinkIndex)" class="remove-btn">Remove</button>
     </div>
-    <form @submit.prevent="onSubmit" :validation-schema="schema">
+    <form @submit.prevent="onSubmit">
       <div class="inputs">
         <div class="input-field platform">
           <label>Platform</label>
           <div class="input-icons">
             <Dropdown
+                @change="setPlaceholder"
                 aria-describedby="dd-error"
                 id="dd"
-                v-model="value"
+                v-model="dropdownValue"
                 :options="dropdownItems"
                 optionLabel="platform"
                 placeholder="Select a platform"
                 class="dropdown"
-                :class="{ 'p-invalid': errorMessage }"
+                :class="{ 'p-invalid': dropError }"
             >
               <template #value="slotProps">
                 <div v-if="slotProps.value" class="dropdown-value">
@@ -134,17 +148,18 @@ const onSubmit = handleSubmit((values) => {
                 </div>
               </template>
             </Dropdown>
-            <small class="p-error invalid-feedback invalid-dropdown" id="dd-error">{{ errorMessage || '&nbsp;' }}</small>
+            <small class="p-error invalid-feedback invalid-dropdown" id="dd-error">{{ dropError || '&nbsp;' }}</small>
           </div>
         </div>
         <div class="input-field">
           <label>Link</label>
           <div class="input-icons">
             <img class="link-icon" src="@/assets/images/icon-link.svg" alt="">
-<!--            <Field type="text" name="url" :class="{ 'is-invalid': errors.url }">-->
+            <Field v-model="urlValue" type="text" name="url" :class="{ 'is-invalid': urlError }"
+                   :placeholder="placeholder">
 
-<!--            </Field>-->
-<!--            <div class="invalid-feedback">{{ errors.url }}</div>-->
+            </Field>
+            <div class="invalid-feedback">{{ urlError }}</div>
           </div>
         </div>
       </div>
