@@ -112,7 +112,7 @@ function setPlaceholder(event) {
     <div class="link-header">
       <div class="link-number">
         <img src="@/assets/images/icon-drag-and-drop.svg" alt="" />
-        <p>Link #1</p>
+        <p>Link #{{ props.profileLinkIndex + 1 }}</p>
       </div>
       <button
         @click="profileLinkStore.removeProfileLink(props.profileLinkIndex)"
