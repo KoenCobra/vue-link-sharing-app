@@ -1,13 +1,13 @@
 ﻿<script setup lang="ts">
-import * as Yup from 'yup';
-import {Form, Field, useForm, useField} from 'vee-validate';
-import {ref} from "vue";
-import {useProfileLinkStore} from "@/stores/profile-link";
-import type {DropdownItem} from "@/interfaces/dropdown-item";
-import Dropdown from 'primevue/dropdown';
+import * as Yup from 'yup'
+import { Field, useForm, useField } from 'vee-validate'
+import { ref } from 'vue'
+import { useProfileLinkStore } from '@/stores/profile-link'
+import type { DropdownItem } from '@/interfaces/dropdown-item'
+import Dropdown from 'primevue/dropdown'
 
-const profileLinkStore = useProfileLinkStore();
-let placeholder: string = '';
+const profileLinkStore = useProfileLinkStore()
+let placeholder: string = ''
 const dropdownItems = ref<DropdownItem[]>([
   {
     icon: 'src/assets/images/icon-github.svg',
@@ -56,59 +56,70 @@ const dropdownItems = ref<DropdownItem[]>([
   {
     icon: 'src/assets/images/icon-twitter.svg',
     platform: 'twitter'
-  },
+  }
 ])
 const props = defineProps({
   profileLinkIndex: Number
 })
 
-const {handleSubmit} = useForm();
-const {value: dropdownValue, errorMessage: dropError} = useField('value', validateDropdownField);
-const {value: urlValue, errorMessage: urlError} = useField('url', validateTextField);
+const { handleSubmit } = useForm()
+const { value: dropdownValue, errorMessage: dropError } = useField('value', validateDropdownField)
+const { value: urlValue, errorMessage: urlError } = useField('url', validateTextField)
 
 function validateDropdownField(value) {
   if (!value) {
-    return 'Platform is required.';
+    return 'Platform is required.'
   }
-  return true;
+  return true
 }
 
 async function validateTextField(value) {
   const urlSchema = Yup.string()
-      .required("Can't be empty")
-      .url('Must be a valid URL')
-      .test(
-          'contains-platform',
-          `URL must contain ${dropdownValue.value?.platform.toLowerCase().replace(/\s/g, '')}`,
-          (value) => value && value.toLowerCase().replace(/\s/g, '').includes(dropdownValue.value?.platform.toLowerCase().replace(/\s/g, ''))
-      );
+    .required("Can't be empty")
+    .url('Must be a valid URL')
+    .test(
+      'contains-platform',
+      `URL must contain ${dropdownValue.value?.platform.toLowerCase().replace(/\s/g, '')}`,
+      (value) =>
+        value &&
+        value
+          .toLowerCase()
+          .replace(/\s/g, '')
+          .includes(dropdownValue.value?.platform.toLowerCase().replace(/\s/g, ''))
+    )
 
   try {
-    await urlSchema.validate(value);
-    return true;
+    await urlSchema.validate(value)
+    return true
   } catch (error) {
-    return error.message;
+    return error.message
   }
 }
 
 const onSubmit = handleSubmit((values) => {
   console.log(values.value)
-});
+})
 
 function setPlaceholder(event) {
-  placeholder = `e.g. https://www.${event.value.platform.toLowerCase().replace(/\s/g, '')}com/benwright`
+  placeholder = `e.g. https://www.${event.value.platform
+    .toLowerCase()
+    .replace(/\s/g, '')}com/benwright`
 }
-
 </script>
 
 <template>
   <div class="link">
     <div class="link-header">
       <div class="link-number">
-        <img src="@/assets/images/icon-drag-and-drop.svg" alt="">
+        <img src="@/assets/images/icon-drag-and-drop.svg" alt="" />
         <p>Link #1</p>
       </div>
-      <button @click="profileLinkStore.removeProfileLink(props.profileLinkIndex)" class="remove-btn">Remove</button>
+      <button
+        @click="profileLinkStore.removeProfileLink(props.profileLinkIndex)"
+        class="remove-btn"
+      >
+        Remove
+      </button>
     </div>
     <form @submit.prevent="onSubmit">
       <div class="inputs">
@@ -116,54 +127,53 @@ function setPlaceholder(event) {
           <label>Platform</label>
           <div class="input-icons">
             <Dropdown
-                @change="setPlaceholder"
-                aria-describedby="dd-error"
-                id="dd"
-                v-model="dropdownValue"
-                :options="dropdownItems"
-                optionLabel="platform"
-                placeholder="Select a platform"
-                class="dropdown"
-                :class="{ 'p-invalid': dropError }"
+              @change="setPlaceholder"
+              aria-describedby="dd-error"
+              id="dd"
+              v-model="dropdownValue"
+              :options="dropdownItems"
+              optionLabel="platform"
+              placeholder="Select a platform"
+              class="dropdown"
+              :class="{ 'p-invalid': dropError }"
             >
               <template #value="slotProps">
                 <div v-if="slotProps.value" class="dropdown-value">
-                  <img
-                      :alt="slotProps.value.icon"
-                      :src="slotProps.value.icon"
-                  />
+                  <img :alt="slotProps.value.icon" :src="slotProps.value.icon" />
                   <div>{{ slotProps.value.platform }}</div>
                 </div>
                 <span v-else>
-                   {{ slotProps.placeholder }}
+                  {{ slotProps.placeholder }}
                 </span>
               </template>
               <template #option="slotProps">
-                <div style="display:flex; gap:0.5rem">
-                  <img
-                      :alt="slotProps.option.icon"
-                      :src="slotProps.option.icon"
-                  />
+                <div style="display: flex; gap: 0.5rem">
+                  <img :alt="slotProps.option.icon" :src="slotProps.option.icon" />
                   <div>{{ slotProps.option.platform }}</div>
                 </div>
               </template>
             </Dropdown>
-            <small class="p-error invalid-feedback invalid-dropdown" id="dd-error">{{ dropError || '&nbsp;' }}</small>
+            <small class="p-error invalid-feedback invalid-dropdown" id="dd-error">{{
+              dropError || '&nbsp;'
+            }}</small>
           </div>
         </div>
         <div class="input-field">
           <label>Link</label>
           <div class="input-icons">
-            <img class="link-icon" src="@/assets/images/icon-link.svg" alt="">
-            <Field v-model="urlValue" type="text" name="url" :class="{ 'is-invalid': urlError }"
-                   :placeholder="placeholder">
-
+            <img class="link-icon" src="@/assets/images/icon-link.svg" alt="" />
+            <Field
+              v-model="urlValue"
+              type="text"
+              name="url"
+              :class="{ 'is-invalid': urlError }"
+              :placeholder="placeholder"
+            >
             </Field>
             <div class="invalid-feedback">{{ urlError }}</div>
           </div>
         </div>
       </div>
-      <button type="submit"> test submit</button>
     </form>
   </div>
 </template>
@@ -202,7 +212,8 @@ function setPlaceholder(event) {
   }
 }
 
-.v-enter-active, .v-leave-active {
+.v-enter-active,
+.v-leave-active {
   transition: all 0.2s ease-out;
 }
 

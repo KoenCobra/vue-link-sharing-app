@@ -1,9 +1,11 @@
 ﻿<script setup lang="ts">
-import Link from "@/components/link.vue";
-import {useProfileLinkStore} from "@/stores/profile-link";
-const profileLinkStore = useProfileLinkStore();
-function addLink(){
-  profileLinkStore.addProfileLink(null);
+import Link from '@/components/link.vue'
+import { useProfileLinkStore } from '@/stores/profile-link'
+
+const profileLinkStore = useProfileLinkStore()
+
+function addLink() {
+  profileLinkStore.addProfileLink(null)
 }
 </script>
 
@@ -14,12 +16,16 @@ function addLink(){
       <p class="subtitle">
         Add/edit/remove links below and then share all your profiles with the world!
       </p>
-      <button @click="addLink" class="add-new-link-btn">
-        + Add new link
-      </button>
-      <Link v-for="(profileLink, index) in profileLinkStore.profileLinks" :profileLinkIndex="index"/>
+      <button @click="addLink" class="add-new-link-btn">+ Add new link</button>
+      <Link
+        v-for="(profileLink, index) in profileLinkStore.profileLinks"
+        :profileLinkIndex="index"
+        :key="profileLink.url"
+      />
     </div>
-
+    <div class="save-btn-section">
+      <button class="save-btn" type="submit">Save</button>
+    </div>
   </div>
 </template>
 
@@ -59,6 +65,21 @@ function addLink(){
       &:hover {
         background: $lightPurple;
       }
+    }
+  }
+
+  .save-btn-section {
+    display: flex;
+    justify-content: right;
+    margin-top: 1.5rem;
+
+    .save-btn {
+      padding: 0.6875rem 1.6875rem;
+      background-color: $purple;
+      color: $white;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
     }
   }
 }

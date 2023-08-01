@@ -50,14 +50,20 @@
       border-color: $purple;
       box-shadow: 0 0 32px 0 rgba(99, 60, 255, 0.25);
     }
-    
-    .dropdown-value{
+
+    .dropdown-value {
       display: flex;
       gap: 0.5rem;
     }
 
     .input-icons {
       position: relative;
+
+      ::placeholder {
+        font-size: 1rem;
+        color: $darkGrey;
+        opacity: 0.5;
+      }
 
       .link-icon, .dev-link-icon {
         position: absolute;
