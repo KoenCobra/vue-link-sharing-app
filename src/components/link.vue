@@ -1,6 +1,6 @@
 ﻿<script setup lang="ts">
 import * as Yup from 'yup';
-import {Form, Field} from 'vee-validate';
+import {Form, Field, useForm, useField} from 'vee-validate';
 import {ref} from "vue";
 import {useProfileLinkStore} from "@/stores/profile-link";
 import type {DropdownItem} from "@/interfaces/dropdown-item";
@@ -71,9 +71,20 @@ const schema = Yup.object().shape({
       (value) => value && value.toLowerCase().replace(/\s/g, '').includes(selectedPlatform.value?.platform.toLowerCase().replace(/\s/g, '')))
 })
 
-function onSubmit() {
+const { handleSubmit } = useForm();
+const { value, errorMessage } = useField('value', validateField);
 
+function validateField(value) {
+  if (!value) {
+    return 'platform is required.';
+  }
+
+  return true;
 }
+
+const onSubmit = handleSubmit((values) => {
+    console.log(values.value)
+});
 
 </script>
 
@@ -86,17 +97,20 @@ function onSubmit() {
       </div>
       <button @click="profileLinkStore.removeProfileLink(props.profileLinkIndex)" class="remove-btn">Remove</button>
     </div>
-    <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors }">
+    <form @submit.prevent="onSubmit" :validation-schema="schema">
       <div class="inputs">
         <div class="input-field platform">
           <label>Platform</label>
           <div class="input-icons">
             <Dropdown
-                v-model="selectedPlatform"
+                aria-describedby="dd-error"
+                id="dd"
+                v-model="value"
                 :options="dropdownItems"
                 optionLabel="platform"
                 placeholder="Select a platform"
                 class="dropdown"
+                :class="{ 'p-invalid': errorMessage }"
             >
               <template #value="slotProps">
                 <div v-if="slotProps.value" class="dropdown-value">
@@ -120,21 +134,22 @@ function onSubmit() {
                 </div>
               </template>
             </Dropdown>
+            <small class="p-error invalid-feedback invalid-dropdown" id="dd-error">{{ errorMessage || '&nbsp;' }}</small>
           </div>
         </div>
         <div class="input-field">
           <label>Link</label>
           <div class="input-icons">
             <img class="link-icon" src="@/assets/images/icon-link.svg" alt="">
-            <Field type="text" name="url" :class="{ 'is-invalid': errors.url }">
+<!--            <Field type="text" name="url" :class="{ 'is-invalid': errors.url }">-->
 
-            </Field>
-            <div class="invalid-feedback">{{ errors.url }}</div>
+<!--            </Field>-->
+<!--            <div class="invalid-feedback">{{ errors.url }}</div>-->
           </div>
         </div>
       </div>
       <button type="submit"> test submit</button>
-    </Form>
+    </form>
   </div>
 </template>
 
