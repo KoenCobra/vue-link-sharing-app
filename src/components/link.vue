@@ -109,7 +109,6 @@ async function validateTextField(value) {
 }
 
 const onSubmit = handleSubmit((values) => {
-  console.log(values)
   profileLinkStore.updateProfileLink(
     {
       platform: values.value,
