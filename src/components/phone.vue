@@ -24,6 +24,7 @@ const profileLinkStore = useProfileLinkStore()
         </div>
         <div>
           <img
+            class="arrow"
             @click="profileLinkStore.removeProfileLink(index)"
             src="@/assets/images/icon-arrow-right.svg"
             alt="arrow"
@@ -114,7 +115,7 @@ const profileLinkStore = useProfileLinkStore()
       color: $white;
       width: 237px;
 
-      img {
+      .arrow {
         cursor: pointer;
       }
 
