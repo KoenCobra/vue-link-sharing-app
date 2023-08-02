@@ -1,4 +1,5 @@
 ﻿export interface DropdownItem {
-    icon: string,
-    platform: string
+  icon: string
+  platform: string
+  background: string
 }

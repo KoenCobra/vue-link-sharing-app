@@ -6,11 +6,12 @@ export const useProfileLinkStore = defineStore('profileLink', () => {
   const profileLinks = ref<ProfileLink[]>([])
   const idNumb = ref(1)
 
-  function addProfileLink(profileLink: ProfileLink) {
+  function addProfileLink(profileLink: ProfileLink, background: string) {
     profileLinks.value?.push({
       id: idNumb.value++,
       platform: profileLink,
-      url: ''
+      url: '',
+      background: background
     })
   }
 
@@ -20,7 +21,6 @@ export const useProfileLinkStore = defineStore('profileLink', () => {
   }
 
   function removeProfileLink(linkIndex: any) {
-    console.log(linkIndex)
     profileLinks.value?.splice(linkIndex, 1)
   }
 

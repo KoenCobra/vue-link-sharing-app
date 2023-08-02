@@ -2,14 +2,19 @@
 import { useProfileLinkStore } from '@/stores/profile-link'
 
 const profileLinkStore = useProfileLinkStore()
+
+// a function to calculate Y position
+const calculateYPosition = (index) => {
+  return 278 + index * (44 + 10)
+}
 </script>
 
 <template>
   <div class="phone">
-    <div v-for="link in profileLinkStore.profileLinks" :key="link.url">
-      <p>{{ link.platform?.icon }}</p>
-      <p>{{ link.platform?.platform }}</p>
-    </div>
+    <!--    <div class="rectangle" v-for="link in profileLinkStore.profileLinks" :key="link.id">-->
+    <!--      <p>{{ link.platform?.icon }}</p>-->
+    <!--      <p>{{ link.platform?.platform }}</p>-->
+    <!--    </div>-->
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="308"
@@ -29,11 +34,21 @@ const profileLinkStore = useProfileLinkStore()
       <circle cx="153.5" cy="112" r="48" fill="#EEE" />
       <rect width="160" height="16" x="73.5" y="185" fill="#EEE" rx="8" />
       <rect width="72" height="8" x="117.5" y="214" fill="#EEE" rx="4" />
-      <rect width="237" height="44" x="35" y="278" fill="#EEE" rx="8" />
-      <rect width="237" height="44" x="35" y="342" fill="#EEE" rx="8" />
-      <rect width="237" height="44" x="35" y="406" fill="#EEE" rx="8" />
-      <rect width="237" height="44" x="35" y="470" fill="#EEE" rx="8" />
-      <rect width="237" height="44" x="35" y="534" fill="#EEE" rx="8" />
+      <svg
+        v-for="(link, index) in profileLinkStore.profileLinks"
+        :key="link.id"
+        width="237"
+        height="44"
+        :y="calculateYPosition(index)"
+      >
+        <rect x="35" fill="red" rx="8" width="100%" height="100%" />
+        <text x="50" y="25" fill="white">{{ link.platform?.platform }}</text>
+      </svg>
+      <!--      <rect width="237" height="44" x="35" y="278" fill="#EEE" rx="8" />-->
+      <!--      <rect width="237" height="44" x="35" y="342" fill="#EEE" rx="8" />-->
+      <!--      <rect width="237" height="44" x="35" y="406" fill="#EEE" rx="8" />-->
+      <!--      <rect width="237" height="44" x="35" y="470" fill="#EEE" rx="8" />-->
+      <!--      <rect width="237" height="44" x="35" y="534" fill="#EEE" rx="8" />-->
     </svg>
   </div>
 </template>
@@ -48,5 +63,14 @@ const profileLinkStore = useProfileLinkStore()
   display: grid;
   justify-content: center;
   padding-block: 4rem;
+  position: relative;
+
+  .rectangle {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    padding: 1rem;
+    background-color: #633cff;
+  }
 }
 </style>

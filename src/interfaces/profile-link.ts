@@ -1,7 +1,7 @@
 ﻿import type { DropdownItem } from '@/interfaces/dropdown-item'
 
 export interface ProfileLink {
-  id: number
+  id?: number
   platform: DropdownItem
   url: string
 }
