@@ -1,4 +1,15 @@
-﻿<script setup lang="ts"></script>
+﻿<script>
+import BaseImageInput from '@/components/base-image-input.vue'
+
+export default {
+  components: { BaseImageInput },
+  data() {
+    return {
+      imageFile: null
+    }
+  }
+}
+</script>
 
 <template>
   <div class="profile-section">
@@ -8,7 +19,7 @@
     </div>
     <div class="upload-section">
       <p class="picture-label">Profile picture</p>
-      <input type="file" />
+      <BaseImageInput v-model="imageFile" />
       <p class="image-label">Image must be below 1024x1024px. Use PNG or JPG format.</p>
     </div>
     <div class="user-details-section">
