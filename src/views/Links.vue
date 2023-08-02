@@ -5,7 +5,7 @@ import { useProfileLinkStore } from '@/stores/profile-link'
 const profileLinkStore = useProfileLinkStore()
 
 function addLink() {
-  profileLinkStore.addProfileLink(null)
+  profileLinkStore.addProfileLink(null, '')
 }
 </script>
 

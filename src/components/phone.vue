@@ -2,19 +2,30 @@
 import { useProfileLinkStore } from '@/stores/profile-link'
 
 const profileLinkStore = useProfileLinkStore()
-
-// a function to calculate Y position
-const calculateYPosition = (index) => {
-  return 278 + index * (44 + 10)
-}
 </script>
 
 <template>
   <div class="phone">
-    <!--    <div class="rectangle" v-for="link in profileLinkStore.profileLinks" :key="link.id">-->
-    <!--      <p>{{ link.platform?.icon }}</p>-->
-    <!--      <p>{{ link.platform?.platform }}</p>-->
-    <!--    </div>-->
+    <div class="rectangles">
+      <div
+        :style="`background-color: ${link.platform?.background}`"
+        class="rectangle"
+        v-for="(link, index) in profileLinkStore.profileLinks"
+        :key="link.url"
+      >
+        <div class="platform">
+          <img :src="link.platform?.icon" :alt="link.platform?.icon" />
+          <p>{{ link.platform?.platform }}</p>
+        </div>
+        <div>
+          <img
+            @click="profileLinkStore.removeProfileLink(index)"
+            src="@/assets/images/icon-arrow-right.svg"
+            alt="arrow"
+          />
+        </div>
+      </div>
+    </div>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="308"
@@ -34,21 +45,11 @@ const calculateYPosition = (index) => {
       <circle cx="153.5" cy="112" r="48" fill="#EEE" />
       <rect width="160" height="16" x="73.5" y="185" fill="#EEE" rx="8" />
       <rect width="72" height="8" x="117.5" y="214" fill="#EEE" rx="4" />
-      <svg
-        v-for="(link, index) in profileLinkStore.profileLinks"
-        :key="link.id"
-        width="237"
-        height="44"
-        :y="calculateYPosition(index)"
-      >
-        <rect x="35" fill="red" rx="8" width="100%" height="100%" />
-        <text x="50" y="25" fill="white">{{ link.platform?.platform }}</text>
-      </svg>
-      <!--      <rect width="237" height="44" x="35" y="278" fill="#EEE" rx="8" />-->
-      <!--      <rect width="237" height="44" x="35" y="342" fill="#EEE" rx="8" />-->
-      <!--      <rect width="237" height="44" x="35" y="406" fill="#EEE" rx="8" />-->
-      <!--      <rect width="237" height="44" x="35" y="470" fill="#EEE" rx="8" />-->
-      <!--      <rect width="237" height="44" x="35" y="534" fill="#EEE" rx="8" />-->
+      <rect width="237" height="44" x="35" y="278" fill="#EEE" rx="8" />
+      <rect width="237" height="44" x="35" y="342" fill="#EEE" rx="8" />
+      <rect width="237" height="44" x="35" y="406" fill="#EEE" rx="8" />
+      <rect width="237" height="44" x="35" y="470" fill="#EEE" rx="8" />
+      <rect width="237" height="44" x="35" y="534" fill="#EEE" rx="8" />
     </svg>
   </div>
 </template>
@@ -62,15 +63,43 @@ const calculateYPosition = (index) => {
   border-radius: 12px;
   display: grid;
   justify-content: center;
-  padding-block: 4rem;
+  align-items: center;
   position: relative;
+  height: 750px;
 
-  .rectangle {
+  .rectangles {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
     position: absolute;
-    left: 0;
-    top: 50%;
-    padding: 1rem;
-    background-color: #633cff;
+    top: 45%;
+    left: 26.7%;
+
+    img {
+      filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(12%) hue-rotate(214deg)
+        brightness(103%) contrast(100%);
+    }
+
+    .rectangle {
+      display: flex;
+      border-radius: 8px;
+      justify-content: space-between;
+      height: 44px;
+      padding: 0.6875rem 1rem;
+      gap: 0.8rem;
+      color: $white;
+      width: 237px;
+
+      img {
+        cursor: pointer;
+      }
+
+      .platform {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+    }
   }
 }
 </style>
