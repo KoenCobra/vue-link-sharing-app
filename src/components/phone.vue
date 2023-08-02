@@ -2,17 +2,15 @@
 import { useProfileLinkStore } from '@/stores/profile-link'
 import { useUserStore } from '@/stores/user'
 
+const user = useUserStore().user
 const profileLinkStore = useProfileLinkStore()
 </script>
 
 <template>
   <div class="phone">
-    <img
-      v-if="useUserStore().user.imgUrl"
-      class="user-img-url"
-      :src="useUserStore().user.imgUrl"
-      alt=""
-    />
+    <img v-if="user.imgUrl" class="user-img-url" :src="user.imgUrl" alt="" />
+    <p class="user-name">{{ user.firstName }} {{ user.lastName }}</p>
+    <p class="user-email">{{ user.email }}</p>
     <div class="rectangles">
       <div
         :style="`background-color: ${link.platform?.background}`"
@@ -50,8 +48,8 @@ const profileLinkStore = useProfileLinkStore()
         d="M12 55.5C12 30.923 31.923 11 56.5 11h24C86.851 11 92 16.149 92 22.5c0 8.008 6.492 14.5 14.5 14.5h95c8.008 0 14.5-6.492 14.5-14.5 0-6.351 5.149-11.5 11.5-11.5h24c24.577 0 44.5 19.923 44.5 44.5v521c0 24.577-19.923 44.5-44.5 44.5h-195C31.923 621 12 601.077 12 576.5v-521Z"
       />
       <circle cx="153.5" cy="112" r="48" fill="#EEE" />
-      <rect width="160" height="16" x="73.5" y="185" fill="#EEE" rx="8" />
-      <rect width="72" height="8" x="117.5" y="214" fill="#EEE" rx="4" />
+      <rect v-if="!user.firstName" width="160" height="16" x="73.5" y="185" fill="#EEE" rx="8" />
+      <rect v-if="!user.email" width="72" height="8" x="117.5" y="214" fill="#EEE" rx="4" />
       <rect width="237" height="44" x="35" y="278" fill="#EEE" rx="8" />
       <rect width="237" height="44" x="35" y="342" fill="#EEE" rx="8" />
       <rect width="237" height="44" x="35" y="406" fill="#EEE" rx="8" />
@@ -118,6 +116,26 @@ const profileLinkStore = useProfileLinkStore()
         align-items: center;
       }
     }
+  }
+
+  .user-name {
+    position: absolute;
+    top: 32%;
+    width: 100%;
+    text-align: center;
+    color: $darkGrey;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .user-email {
+    position: absolute;
+    top: 36%;
+    width: 100%;
+    text-align: center;
+    color: $grey;
+    font-size: 0.875rem;
   }
 }
 </style>

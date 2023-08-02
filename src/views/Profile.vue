@@ -1,7 +1,9 @@
 ﻿<script>
 import BaseImageInput from '@/components/base-image-input.vue'
+import { useUserStore } from '@/stores/user'
 
 export default {
+  methods: { useUserStore },
   components: { BaseImageInput },
   data() {
     return {
@@ -25,15 +27,19 @@ export default {
     <div class="user-details-section">
       <div class="profile-input-field">
         <label>First name</label>
-        <input type="text" placeholder="e.g. John" />
+        <input v-model="useUserStore().user.firstName" type="text" placeholder="e.g. John" />
       </div>
       <div class="profile-input-field">
         <label>Last name</label>
-        <input type="text" placeholder="e.g. Appleseed" />
+        <input v-model="useUserStore().user.lastName" type="text" placeholder="e.g. Appleseed" />
       </div>
       <div class="profile-input-field">
         <label>Email</label>
-        <input type="email" placeholder="e.g. email@example.com" />
+        <input
+          v-model="useUserStore().user.email"
+          type="email"
+          placeholder="e.g. email@example.com"
+        />
       </div>
     </div>
   </div>
@@ -74,6 +80,45 @@ export default {
     .image-label {
       color: $grey;
       font-size: 0.75rem;
+    }
+  }
+
+  .user-details-section {
+    background-color: $lightGrey;
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.75rem;
+
+    .profile-input-field {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 35% 65%;
+      align-items: center;
+
+      ::placeholder {
+        color: $darkGrey;
+        opacity: 0.5;
+      }
+
+      label {
+        color: $grey;
+      }
+
+      input {
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border: 1px solid $borders;
+        background: $white;
+        outline: none;
+        color: $darkGrey;
+
+        &:focus {
+          border-color: $purple;
+          box-shadow: 0 0 32px 0 rgba(99, 60, 255, 0.25);
+        }
+      }
     }
   }
 }
