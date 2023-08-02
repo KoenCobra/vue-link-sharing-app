@@ -236,7 +236,7 @@ function setPlaceholder(event) {
   justify-content: right;
 
   .save-btn {
-    padding: 0.6875rem 1.6875rem;
+    padding: 0.3875rem 1.3875rem;
     background-color: $purple;
     color: $white;
     border-radius: 8px;

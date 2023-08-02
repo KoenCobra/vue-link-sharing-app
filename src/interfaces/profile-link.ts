@@ -2,6 +2,6 @@
 
 export interface ProfileLink {
   id?: number
-  platform: DropdownItem
-  url: string
+  platform?: DropdownItem
+  url?: string
 }

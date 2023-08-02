@@ -84,6 +84,7 @@ const profileLinkStore = useProfileLinkStore()
       display: flex;
       border-radius: 8px;
       justify-content: space-between;
+      align-items: center;
       height: 44px;
       padding: 0.6875rem 1rem;
       gap: 0.8rem;
