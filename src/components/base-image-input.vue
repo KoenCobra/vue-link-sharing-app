@@ -1,4 +1,5 @@
 ﻿<script>
+import { useUserStore } from '@/stores/user'
 export default {
   data() {
     return {
@@ -16,6 +17,7 @@ export default {
         const reader = new FileReader()
         reader.onload = (e) => {
           this.imageData = e.target.result
+          useUserStore().user.imgUrl = e.target.result
         }
         reader.readAsDataURL(files[0])
         this.$emit('input', files[0])

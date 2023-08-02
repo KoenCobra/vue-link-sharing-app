@@ -1,11 +1,18 @@
 ﻿<script setup lang="ts">
 import { useProfileLinkStore } from '@/stores/profile-link'
+import { useUserStore } from '@/stores/user'
 
 const profileLinkStore = useProfileLinkStore()
 </script>
 
 <template>
   <div class="phone">
+    <img
+      v-if="useUserStore().user.imgUrl"
+      class="user-img-url"
+      :src="useUserStore().user.imgUrl"
+      alt=""
+    />
     <div class="rectangles">
       <div
         :style="`background-color: ${link.platform?.background}`"
@@ -66,6 +73,16 @@ const profileLinkStore = useProfileLinkStore()
   align-items: center;
   position: relative;
   height: 750px;
+
+  .user-img-url {
+    position: absolute;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    top: 16%;
+    left: 40%;
+  }
 
   .rectangles {
     display: grid;
