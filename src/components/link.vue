@@ -142,7 +142,9 @@ function setPlaceholder(event) {
           <div class="input-icons">
             <Dropdown
               @change="setPlaceholder"
-              v-model="dropdownValue"
+              v-model="
+                profileLinkStore.profileLinks.find((p) => p.id === props.profileLinkId).platform
+              "
               :options="dropdownItems"
               optionLabel="platform"
               placeholder="Select a platform"
@@ -175,7 +177,7 @@ function setPlaceholder(event) {
           <div class="input-icons">
             <img class="link-icon" src="@/assets/images/icon-link.svg" alt="" />
             <input
-              v-model="urlValue"
+              v-model="profileLinkStore.profileLinks.find((p) => p.id === props.profileLinkId).url"
               type="text"
               name="url"
               :class="{ 'is-invalid': urlError }"
