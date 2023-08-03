@@ -71,7 +71,7 @@ const dropdownItems = ref<DropdownItem[]>([
   }
 ])
 const props = defineProps({
-  profileLinkIndex: Number
+  profileLinkId: Number
 })
 
 const { handleSubmit } = useForm()
@@ -114,7 +114,7 @@ const onSubmit = handleSubmit((values) => {
       platform: values.value,
       url: values.url
     },
-    props.profileLinkIndex
+    props.profileLinkId
   )
 })
 
@@ -129,12 +129,9 @@ function setPlaceholder(event) {
   <div class="link">
     <div class="link-header">
       <div class="link-number">
-        <p>Link #{{ props.profileLinkIndex + 1 }}</p>
+        <p>Link #{{ props.profileLinkId + 1 }}</p>
       </div>
-      <button
-        @click="profileLinkStore.removeProfileLink(props.profileLinkIndex)"
-        class="remove-btn"
-      >
+      <button @click="profileLinkStore.removeProfileLink(props.profileLinkId)" class="remove-btn">
         Remove
       </button>
     </div>

@@ -20,8 +20,8 @@ function addLink() {
     </div>
     <div class="links">
       <Link
-        v-for="(profileLink, index) in profileLinkStore.profileLinks"
-        :profileLinkIndex="index"
+        v-for="profileLink in profileLinkStore.profileLinks"
+        :profileLinkId="profileLink.id"
         :key="profileLink.id"
       />
     </div>
