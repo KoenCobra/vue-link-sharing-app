@@ -1,16 +1,41 @@
 ﻿<script setup lang="ts">
 import { useUserStore } from '@/stores/user'
 import { useProfileLinkStore } from '@/stores/profile-link'
+import { useToast } from 'primevue/usetoast'
+import Toast from 'primevue/toast'
+const toast = useToast()
 
 const user = useUserStore().user
 const profileLinkStore = useProfileLinkStore()
+
+function copyUrlToClipboard() {
+  navigator.clipboard
+    .writeText(window.location.href)
+    .then(() => {
+      toast.add({
+        severity: 'success',
+        summary: 'Info',
+        detail: 'URL copied to clipboard successfully!',
+        life: 3000
+      })
+    })
+    .catch((err) => {
+      toast.add({
+        severity: 'error',
+        summary: 'Info',
+        detail: err,
+        life: 3000
+      })
+    })
+}
 </script>
 
 <template>
+  <Toast position="bottom-right" />
   <div class="preview-header-background">
     <div class="preview-header-nav">
       <RouterLink to="/links">Back to Editor</RouterLink>
-      <button class="share-btn">Share Link</button>
+      <button @click="copyUrlToClipboard" class="share-btn">Share Link</button>
     </div>
     <div class="preview-card">
       <div class="preview-card-user">

@@ -1,30 +1,30 @@
-import {createApp} from 'vue'
-import {createPinia} from 'pinia'
-import {createAuth0} from "@auth0/auth0-vue";
-import PrimeVue from 'primevue/config';
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import { createAuth0 } from '@auth0/auth0-vue'
+import PrimeVue from 'primevue/config'
 import App from './App.vue'
 import router from './router'
-import "primevue/resources/themes/lara-light-indigo/theme.css";
-
+import 'primevue/resources/themes/lara-light-indigo/theme.css'
+import ToastService from 'primevue/toastservice'
 import './assets/sass/styles.scss'
 import 'nprogress/nprogress.css'
-import progressBar from "@/includes/progress-bar";
+import progressBar from '@/includes/progress-bar'
 
-progressBar(router);
+progressBar(router)
 
-const app = createApp(App);
+const app = createApp(App)
 
-app.use(createPinia());
-app.use(PrimeVue, { ripple: true });
-app.use(router)
-    .use(
-        createAuth0({
-            domain: import.meta.env.VITE_AUTH0_DOMAIN,
-            clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
-            authorizationParams: {
-                redirect_uri: import.meta.env.VITE_AUTH0_CALLBACK_URL,
-            },
-        })
-    );
+app.use(createPinia())
+app.use(PrimeVue, { ripple: true })
+app.use(ToastService)
+app.use(router).use(
+  createAuth0({
+    domain: import.meta.env.VITE_AUTH0_DOMAIN,
+    clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
+    authorizationParams: {
+      redirect_uri: import.meta.env.VITE_AUTH0_CALLBACK_URL
+    }
+  })
+)
 
-app.mount('#app');
+app.mount('#app')
