@@ -125,7 +125,7 @@ const profileLinkStore = useProfileLinkStore()
       color: $white;
       width: 237px;
       margin-bottom: 1.25rem;
-      cursor: pointer;
+      cursor: move;
 
       .arrow {
         cursor: pointer;
