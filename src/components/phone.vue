@@ -1,10 +1,7 @@
 ﻿<script setup lang="ts">
 import { useProfileLinkStore } from '@/stores/profile-link'
 import { useUserStore } from '@/stores/user'
-
 import draggable from 'vuedraggable'
-import { ref } from 'vue'
-const meals = ref(['Hamburger', 'Pizza', 'Spaghetti', 'Tacos', 'Teriyaki Chicken'])
 
 const user = useUserStore().user
 const profileLinkStore = useProfileLinkStore()
@@ -16,9 +13,13 @@ const profileLinkStore = useProfileLinkStore()
     <p class="user-name">{{ user.firstName }} {{ user.lastName }}</p>
     <p class="user-email">{{ user.email }}</p>
     <div class="rectangles">
-      <draggable v-model="profileLinkStore.profileLinks" :animation="300">
+      <draggable v-model="profileLinkStore.profileLinks" item-key="link" :animation="300">
         <template #item="{ element: link, index }">
-          <div :style="`background-color: ${link.platform?.background}`" class="rectangle">
+          <div
+            :style="`background-color: ${link.platform?.background}`"
+            class="rectangle"
+            :key="link.url"
+          >
             <div class="platform">
               <img :src="link.platform?.icon" :alt="link.platform?.icon" />
               <p>{{ link.platform?.platform }}</p>
