@@ -2,6 +2,10 @@
 import { useProfileLinkStore } from '@/stores/profile-link'
 import { useUserStore } from '@/stores/user'
 
+import draggable from 'vuedraggable'
+import { ref } from 'vue'
+const meals = ref(['Hamburger', 'Pizza', 'Spaghetti', 'Tacos', 'Teriyaki Chicken'])
+
 const user = useUserStore().user
 const profileLinkStore = useProfileLinkStore()
 </script>
@@ -12,25 +16,31 @@ const profileLinkStore = useProfileLinkStore()
     <p class="user-name">{{ user.firstName }} {{ user.lastName }}</p>
     <p class="user-email">{{ user.email }}</p>
     <div class="rectangles">
-      <div
-        :style="`background-color: ${link.platform?.background}`"
-        class="rectangle"
-        v-for="(link, index) in profileLinkStore.profileLinks"
-        :key="link.url"
-      >
-        <div class="platform">
-          <img :src="link.platform?.icon" :alt="link.platform?.icon" />
-          <p>{{ link.platform?.platform }}</p>
-        </div>
-        <div>
-          <img
-            class="arrow"
-            @click="profileLinkStore.removeProfileLink(index)"
-            src="@/assets/images/icon-arrow-right.svg"
-            alt="arrow"
-          />
-        </div>
-      </div>
+      <draggable v-model="profileLinkStore.profileLinks" :animation="300">
+        <template #item="{ element: link, index }">
+          <div :style="`background-color: ${link.platform?.background}`" class="rectangle">
+            <div class="platform">
+              <img :src="link.platform?.icon" :alt="link.platform?.icon" />
+              <p>{{ link.platform?.platform }}</p>
+            </div>
+            <div>
+              <img
+                @click="profileLinkStore.removeProfileLink(index)"
+                class="arrow"
+                src="@/assets/images/icon-arrow-right.svg"
+                alt="arrow"
+              />
+            </div>
+          </div>
+        </template>
+      </draggable>
+      <!--            <div-->
+      <!--              -->
+      <!--              v-for="(link, index) in profileLinkStore.profileLinks"-->
+      <!--              :key="link.url"-->
+      <!--            >-->
+      <!--             -->
+      <!--            </div>-->
     </div>
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -114,6 +124,8 @@ const profileLinkStore = useProfileLinkStore()
       gap: 0.8rem;
       color: $white;
       width: 237px;
+      margin-bottom: 1.25rem;
+      cursor: pointer;
 
       .arrow {
         cursor: pointer;
