@@ -26,8 +26,8 @@ export const useProfileLinkStore = defineStore('profileLink', () => {
     }
   }
 
-  function removeProfileLink(linkIndex: any) {
-    profileLinks.value.splice(linkIndex, 1)
+  function removeProfileLink(id: number) {
+    profileLinks.value = profileLinks.value.filter((link) => link.id !== id)
     localStorage.setItem('profileLinks', JSON.stringify(profileLinks.value))
   }
 
