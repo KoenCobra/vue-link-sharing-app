@@ -14,7 +14,6 @@ function copyUrlToClipboard() {
     .then(() => {
       toast.add({
         severity: 'success',
-        summary: 'Info',
         detail: 'URL copied to clipboard successfully!',
         life: 3000
       })
@@ -47,7 +46,7 @@ function copyUrlToClipboard() {
         <div
           :style="`background-color: ${link.platform?.background}`"
           class="rectangle"
-          v-for="(link, index) in profileLinkStore.profileLinks"
+          v-for="link in profileLinkStore.profileLinks"
           :key="link.url"
         >
           <a :href="link.url" target="_blank">
@@ -59,7 +58,7 @@ function copyUrlToClipboard() {
           <div>
             <img
               class="arrow"
-              @click="profileLinkStore.removeProfileLink(index)"
+              @click="profileLinkStore.removeProfileLink(link.id)"
               src="@/assets/images/icon-arrow-right.svg"
               alt="arrow"
             />
