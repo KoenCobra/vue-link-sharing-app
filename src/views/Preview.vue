@@ -50,10 +50,12 @@ function copyUrlToClipboard() {
           v-for="(link, index) in profileLinkStore.profileLinks"
           :key="link.url"
         >
-          <div class="platform">
-            <img :src="link.platform?.icon" :alt="link.platform?.icon" />
-            <p>{{ link.platform?.platform }}</p>
-          </div>
+          <a :href="link.url" target="_blank">
+            <div class="platform">
+              <img :src="link.platform?.icon" :alt="link.platform?.icon" />
+              <p>{{ link.platform?.platform }}</p>
+            </div>
+          </a>
           <div>
             <img
               class="arrow"
@@ -168,6 +170,7 @@ function copyUrlToClipboard() {
           display: flex;
           gap: 0.5rem;
           align-items: center;
+          cursor: pointer;
         }
 
         .arrow {
