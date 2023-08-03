@@ -1,7 +1,7 @@
 ﻿<script setup lang="ts">
 import * as Yup from 'yup'
-import { useForm, useField } from 'vee-validate'
-import { ref } from 'vue'
+import { useField, useForm } from 'vee-validate'
+import { onMounted, ref } from 'vue'
 import { useProfileLinkStore } from '@/stores/profile-link'
 import type { DropdownItem } from '@/interfaces/dropdown-item'
 import Dropdown from 'primevue/dropdown'
@@ -129,7 +129,7 @@ function setPlaceholder(event) {
   <div class="link">
     <div class="link-header">
       <div class="link-number">
-        <p>Link #{{ props.profileLinkId + 1 }}</p>
+        <p>Link #{{ props.profileLinkId }}</p>
       </div>
       <button @click="profileLinkStore.removeProfileLink(props.profileLinkId)" class="remove-btn">
         Remove
@@ -142,9 +142,7 @@ function setPlaceholder(event) {
           <div class="input-icons">
             <Dropdown
               @change="setPlaceholder"
-              v-model="
-                profileLinkStore.profileLinks.find((p) => p.id === props.profileLinkId).platform
-              "
+              v-model="dropdownValue"
               :options="dropdownItems"
               optionLabel="platform"
               placeholder="Select a platform"
@@ -177,7 +175,7 @@ function setPlaceholder(event) {
           <div class="input-icons">
             <img class="link-icon" src="@/assets/images/icon-link.svg" alt="" />
             <input
-              v-model="profileLinkStore.profileLinks.find((p) => p.id === props.profileLinkId).url"
+              v-model="urlValue"
               type="text"
               name="url"
               :class="{ 'is-invalid': urlError }"

@@ -3,16 +3,16 @@ import { ref } from 'vue'
 import type { ProfileLink } from '@/interfaces/profile-link'
 
 export const useProfileLinkStore = defineStore('profileLink', () => {
-  const profileLinks = ref<ProfileLink[]>(JSON.parse(localStorage.getItem('profileLinks') || '[]'))
+  const profileLinks = ref<ProfileLink[]>(JSON.parse(localStorage.getItem('profileLinks')) || [])
   const idNumb = ref(1)
 
-  function addProfileLink(profileLink: ProfileLink, background: string) {
-    profileLinks.value.push({
+  function addProfileLink() {
+    profileLinks.value?.push({
       id: idNumb.value++,
-      platform: profileLink,
-      url: '',
-      background: background
+      platform: {},
+      url: ''
     })
+
     localStorage.setItem('profileLinks', JSON.stringify(profileLinks.value))
   }
 
@@ -31,5 +31,5 @@ export const useProfileLinkStore = defineStore('profileLink', () => {
     localStorage.setItem('profileLinks', JSON.stringify(profileLinks.value))
   }
 
-  return { profileLinks, addProfileLink, removeProfileLink, updateProfileLink }
+  return { profileLinks, idNumb, addProfileLink, removeProfileLink, updateProfileLink }
 })
