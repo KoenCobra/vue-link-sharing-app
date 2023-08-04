@@ -69,7 +69,7 @@ const dropdownItems = ref<DropdownItem[]>([
   }
 ])
 
-function setPlaceholder(event) {
+function setPlaceholder(event: any) {
   placeholder = `e.g. https://www.${event.value.platform
     .toLowerCase()
     .replace(/\s/g, '')}com/benwright`

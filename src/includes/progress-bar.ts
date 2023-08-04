@@ -1,9 +1,9 @@
 ﻿import NProgress from 'nprogress'
-export default (router) => {
-    router.beforeEach((to, from, next) => {
-        NProgress.start()
-        next()
-    })
+export default (router: any) => {
+  router.beforeEach((to: any, from: any, next: any) => {
+    NProgress.start()
+    next()
+  })
 
-    router.afterEach(NProgress.done)
+  router.afterEach(NProgress.done)
 }

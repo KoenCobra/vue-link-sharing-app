@@ -9,12 +9,12 @@ export const useProfileLinkStore = defineStore('profileLink', () => {
   const addProfileLink = () => {
     profileLinks.value?.push({
       id: idNumb.value++,
-      platform: {},
+      platform: { platform: '', icon: '', background: '' },
       url: ''
     })
   }
 
-  const removeProfileLink = (id: number) => {
+  const removeProfileLink = (id: any) => {
     profileLinks.value = profileLinks.value?.filter((link) => link.id !== id)
     localStorage.setItem('profileLinks', JSON.stringify(profileLinks.value))
   }
