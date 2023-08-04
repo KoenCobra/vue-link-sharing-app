@@ -35,13 +35,6 @@ const profileLinkStore = useProfileLinkStore()
           </div>
         </template>
       </draggable>
-      <!--            <div-->
-      <!--              -->
-      <!--              v-for="(link, index) in profileLinkStore.profileLinks"-->
-      <!--              :key="link.url"-->
-      <!--            >-->
-      <!--             -->
-      <!--            </div>-->
     </div>
     <svg
       xmlns="http://www.w3.org/2000/svg"

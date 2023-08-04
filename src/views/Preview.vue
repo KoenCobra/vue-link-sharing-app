@@ -3,6 +3,7 @@ import { useUserStore } from '@/stores/user'
 import { useProfileLinkStore } from '@/stores/profile-link'
 import { useToast } from 'primevue/usetoast'
 import Toast from 'primevue/toast'
+import draggable from 'vuedraggable'
 
 const toast = useToast()
 
@@ -44,27 +45,30 @@ function copyUrlToClipboard() {
         <p class="user-email">{{ user.email }}</p>
       </div>
       <div class="preview-card-links">
-        <div
-          :style="`background-color: ${link.platform?.background}`"
-          class="rectangle"
-          v-for="link in profileLinkStore.profileLinks"
-          :key="link.url"
-        >
-          <a :href="link.url" target="_blank">
-            <div class="platform">
-              <img :src="link.platform?.icon" :alt="link.platform?.icon" />
-              <p>{{ link.platform?.platform }}</p>
+        <draggable v-model="profileLinkStore.profileLinks" item-key="link" :animation="300">
+          <template #item="{ element: link }">
+            <div
+              :style="`background-color: ${link.platform?.background}`"
+              class="rectangle"
+              :key="link.url"
+            >
+              <a :href="link.url" target="_blank">
+                <div class="platform">
+                  <img :src="link.platform?.icon" :alt="link.platform?.icon" />
+                  <p>{{ link.platform?.platform }}</p>
+                </div>
+              </a>
+              <div>
+                <img
+                  @click="profileLinkStore.removeProfileLink(link.id)"
+                  class="arrow"
+                  src="@/assets/images/icon-arrow-right.svg"
+                  alt="arrow"
+                />
+              </div>
             </div>
-          </a>
-          <div>
-            <img
-              class="arrow"
-              @click="profileLinkStore.removeProfileLink(link.id)"
-              src="@/assets/images/icon-arrow-right.svg"
-              alt="arrow"
-            />
-          </div>
-        </div>
+          </template>
+        </draggable>
       </div>
     </div>
   </div>
@@ -115,25 +119,23 @@ function copyUrlToClipboard() {
   }
 
   .preview-card {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 349px;
-    padding: 48px 56px;
-    border-radius: 24px;
-    background: #fff;
-    box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 1rem;
     text-align: center;
-
-    @media (max-width: 600px) {
-      background-color: transparent;
-      box-shadow: none;
-      padding: 0 10px;
+    @media (min-width: 600px) {
+      width: 349px;
+      padding: 48px 56px;
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-inline: auto;
+      margin-top: 2rem;
     }
 
     .preview-card-user {
@@ -148,6 +150,11 @@ function copyUrlToClipboard() {
         object-fit: cover;
         margin-inline: auto;
         margin-bottom: 1.5rem;
+
+        @media (max-width: 600px) {
+          width: 150px;
+          height: 150px;
+        }
       }
 
       .user-name {
@@ -162,10 +169,11 @@ function copyUrlToClipboard() {
     }
 
     .preview-card-links {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
       width: 100%;
+
+      @media (max-width: 600px) {
+        padding-inline: 2rem;
+      }
 
       .rectangle {
         display: flex;
@@ -176,6 +184,7 @@ function copyUrlToClipboard() {
         padding: 0.6875rem 1rem;
         gap: 0.8rem;
         color: $white;
+        margin-bottom: 1.25rem;
 
         img {
           filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(12%)
