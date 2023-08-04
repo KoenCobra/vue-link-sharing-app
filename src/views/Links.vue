@@ -84,11 +84,9 @@ function addLink() {
     flex-direction: column;
     text-align: center;
     margin-inline: auto;
-    width: 488px;
+    max-width: 488px;
 
     img {
-      width: 249.533px;
-      height: 160px;
       margin-block: 2rem;
       margin-inline: auto;
     }
