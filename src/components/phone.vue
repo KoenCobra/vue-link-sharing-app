@@ -92,6 +92,10 @@ const profileLinkStore = useProfileLinkStore()
   position: relative;
   height: 750px;
 
+  @media (max-width: 1100px) {
+    display: none;
+  }
+
   .user-img-url {
     position: absolute;
     border-radius: 50%;

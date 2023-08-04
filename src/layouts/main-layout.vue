@@ -1,24 +1,23 @@
 ﻿<script setup lang="ts">
-import {useAuth0} from "@auth0/auth0-vue";
-import Navbar from "@/components/navbar.vue";
-import Phone from "@/components/phone.vue";
-const {isAuthenticated} = useAuth0()
+import { useAuth0 } from '@auth0/auth0-vue'
+import Navbar from '@/components/navbar.vue'
+import Phone from '@/components/phone.vue'
+const { isAuthenticated } = useAuth0()
 </script>
 
 <template>
   <div class="main">
     <template v-if="isAuthenticated">
-      <Navbar/>
+      <Navbar />
       <div class="main-grid">
-        <Phone/>
-        <slot/>
+        <Phone />
+        <slot />
       </div>
     </template>
   </div>
 </template>
 
 <style scoped lang="scss">
-
 .main {
   padding: 1.5rem;
   max-width: 1400px;
@@ -29,6 +28,10 @@ const {isAuthenticated} = useAuth0()
     display: grid;
     grid-template-columns: 32rem auto;
     gap: 2rem;
+
+    @media (max-width: 1100px) {
+      grid-template-columns: 1fr;
+    }
   }
 }
 </style>

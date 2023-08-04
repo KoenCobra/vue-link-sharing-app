@@ -69,10 +69,14 @@ export default {
     border-radius: 12px;
     padding: 1.25rem;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 20% auto 20%;
     align-items: center;
     justify-content: space-between;
 
+    @media (max-width: 650px) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
     .picture-label {
       color: $grey;
     }
@@ -96,6 +100,11 @@ export default {
       display: grid;
       grid-template-columns: 35% 65%;
       align-items: center;
+
+      @media (max-width: 650px) {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+      }
 
       ::placeholder {
         color: $darkGrey;
