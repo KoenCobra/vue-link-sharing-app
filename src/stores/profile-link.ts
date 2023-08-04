@@ -6,7 +6,7 @@ export const useProfileLinkStore = defineStore('profileLink', () => {
   const profileLinks = ref<ProfileLink[]>(JSON.parse(localStorage.getItem('profileLinks')) || [])
   const idNumb = ref(1)
 
-  function addProfileLink() {
+  const addProfileLink = () => {
     profileLinks.value?.push({
       id: idNumb.value++,
       platform: {},
@@ -16,7 +16,7 @@ export const useProfileLinkStore = defineStore('profileLink', () => {
     localStorage.setItem('profileLinks', JSON.stringify(profileLinks.value))
   }
 
-  function updateProfileLink(profileLink: ProfileLink, id: number) {
+  const updateProfileLink = (profileLink: ProfileLink, id: number) => {
     const linkToUpdate = profileLinks.value.find((link) => link.id === id)
 
     if (linkToUpdate) {
@@ -26,7 +26,7 @@ export const useProfileLinkStore = defineStore('profileLink', () => {
     }
   }
 
-  function removeProfileLink(id: number) {
+  const removeProfileLink = (id: number) => {
     profileLinks.value = profileLinks.value.filter((link) => link.id !== id)
     localStorage.setItem('profileLinks', JSON.stringify(profileLinks.value))
   }

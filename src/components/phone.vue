@@ -14,7 +14,7 @@ const profileLinkStore = useProfileLinkStore()
     <p class="user-email">{{ user.email }}</p>
     <div class="rectangles">
       <draggable v-model="profileLinkStore.profileLinks" item-key="link" :animation="300">
-        <template #item="{ element: link, index }">
+        <template #item="{ element: link }">
           <div
             :style="`background-color: ${link.platform?.background}`"
             class="rectangle"
@@ -26,7 +26,7 @@ const profileLinkStore = useProfileLinkStore()
             </div>
             <div>
               <img
-                @click="profileLinkStore.removeProfileLink(index)"
+                @click="profileLinkStore.removeProfileLink(link.id)"
                 class="arrow"
                 src="@/assets/images/icon-arrow-right.svg"
                 alt="arrow"
