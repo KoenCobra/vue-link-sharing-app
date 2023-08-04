@@ -1,7 +1,5 @@
 ﻿<script setup lang="ts">
-import * as Yup from 'yup'
-import { useField, useForm } from 'vee-validate'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { useProfileLinkStore } from '@/stores/profile-link'
 import type { DropdownItem } from '@/interfaces/dropdown-item'
 import Dropdown from 'primevue/dropdown'
@@ -70,53 +68,6 @@ const dropdownItems = ref<DropdownItem[]>([
     background: '#1D9BF0'
   }
 ])
-const props = defineProps({
-  profileLinkId: Number
-})
-
-const { handleSubmit } = useForm()
-const { value: dropdownValue, errorMessage: dropError } = useField('value', validateDropdownField)
-const { value: urlValue, errorMessage: urlError } = useField('url', validateTextField)
-
-function validateDropdownField(value) {
-  if (!value) {
-    return 'Platform is required.'
-  }
-  return true
-}
-
-async function validateTextField(value) {
-  const urlSchema = Yup.string()
-    .required("Can't be empty")
-    .url('Must be a valid URL')
-    .test(
-      'contains-platform',
-      `URL must contain ${dropdownValue.value?.platform.toLowerCase().replace(/\s/g, '')}`,
-      (value) =>
-        value &&
-        value
-          .toLowerCase()
-          .replace(/\s/g, '')
-          .includes(dropdownValue.value?.platform.toLowerCase().replace(/\s/g, ''))
-    )
-
-  try {
-    await urlSchema.validate(value)
-    return true
-  } catch (error) {
-    return error.message
-  }
-}
-
-const onSubmit = handleSubmit((values) => {
-  profileLinkStore.updateProfileLink(
-    {
-      platform: values.value,
-      url: values.url
-    },
-    props.profileLinkId
-  )
-})
 
 function setPlaceholder(event) {
   placeholder = `e.g. https://www.${event.value.platform
@@ -126,37 +77,37 @@ function setPlaceholder(event) {
 </script>
 
 <template>
-  <div class="link">
+  <div
+    class="link"
+    v-for="(profileLink, index) in profileLinkStore.profileLinks"
+    :key="profileLink.id"
+  >
     <div class="link-header">
       <div class="link-number">
-        <p>Link #{{ props.profileLinkId }}</p>
+        <p>Link #{{ index + 1 }}</p>
       </div>
-      <button @click="profileLinkStore.removeProfileLink(props.profileLinkId)" class="remove-btn">
+      <button @click="profileLinkStore.removeProfileLink(profileLink.id)" class="remove-btn">
         Remove
       </button>
     </div>
-    <form @submit.prevent="onSubmit">
+    <form>
       <div class="inputs">
         <div class="input-field platform">
           <label>Platform</label>
           <div class="input-icons">
             <Dropdown
               @change="setPlaceholder"
-              v-model="dropdownValue"
+              v-model="profileLink.platform"
               :options="dropdownItems"
               optionLabel="platform"
               placeholder="Select a platform"
               class="dropdown"
-              :class="{ 'p-invalid': dropError }"
             >
-              <template #value="slotProps">
-                <div v-if="slotProps.value" class="dropdown-value">
-                  <img :alt="slotProps.value.icon" :src="slotProps.value.icon" />
-                  <div>{{ slotProps.value.platform }}</div>
+              <template>
+                <div class="dropdown-value">
+                  <img alt="" :src="profileLink.platform?.icon" />
+                  <div>{{ profileLink.platform?.platform }}</div>
                 </div>
-                <span v-else>
-                  {{ slotProps.placeholder }}
-                </span>
               </template>
               <template #option="slotProps">
                 <div style="display: flex; gap: 0.5rem">
@@ -165,9 +116,6 @@ function setPlaceholder(event) {
                 </div>
               </template>
             </Dropdown>
-            <small class="p-error invalid-feedback invalid-dropdown" id="dd-error">{{
-              dropError || '&nbsp;'
-            }}</small>
           </div>
         </div>
         <div class="input-field">
@@ -175,18 +123,25 @@ function setPlaceholder(event) {
           <div class="input-icons">
             <img class="link-icon" src="@/assets/images/icon-link.svg" alt="" />
             <input
-              v-model="urlValue"
+              v-model="profileLink.url"
               type="text"
               name="url"
-              :class="{ 'is-invalid': urlError }"
-              :placeholder="placeholder"
+              :placeholder="profileLink.platform?.platform ? placeholder : ''"
             />
-            <div class="invalid-feedback">{{ urlError }}</div>
           </div>
         </div>
-      </div>
-      <div class="save-btn-section">
-        <button class="save-btn" type="submit">Save</button>
+        <p
+          class="error"
+          v-if="
+            profileLink.platform?.platform &&
+            !profileLink.url
+              ?.toLowerCase()
+              .replace(/\s/g, '')
+              .includes(profileLink.platform?.platform?.toLowerCase().replace(/\s/g, ''))
+          "
+        >
+          *Make sure your URL contains: {{ profileLink.platform?.platform }}
+        </p>
       </div>
     </form>
   </div>
@@ -226,19 +181,10 @@ function setPlaceholder(event) {
   }
 }
 
-.save-btn-section {
-  display: flex;
-  justify-content: right;
-
-  .save-btn {
-    padding: 0.3875rem 1.3875rem;
-    background-color: $purple;
-    color: $white;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    margin-top: 1.5rem;
-  }
+.error {
+  color: $grey;
+  font-size: 0.75rem;
+  text-align: right;
 }
 
 .v-enter-active,

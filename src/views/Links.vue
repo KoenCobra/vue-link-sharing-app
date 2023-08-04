@@ -19,11 +19,7 @@ function addLink() {
       <button @click="addLink" class="add-new-link-btn">+ Add new link</button>
     </div>
     <div v-if="profileLinkStore.profileLinks.length" class="links">
-      <Link
-        v-for="profileLink in profileLinkStore.profileLinks"
-        :profileLinkId="profileLink.id"
-        :key="profileLink.id"
-      />
+      <Link />
     </div>
     <div v-else>
       <div class="empty-list-placeholder">

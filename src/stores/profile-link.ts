@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import type { ProfileLink } from '@/interfaces/profile-link'
 
 export const useProfileLinkStore = defineStore('profileLink', () => {
-  const profileLinks = ref<ProfileLink[]>(JSON.parse(localStorage.getItem('profileLinks')) || [])
+  const profileLinks = ref<ProfileLink[]>([])
   const idNumb = ref(1)
 
   const addProfileLink = () => {
@@ -12,24 +12,12 @@ export const useProfileLinkStore = defineStore('profileLink', () => {
       platform: {},
       url: ''
     })
-
-    localStorage.setItem('profileLinks', JSON.stringify(profileLinks.value))
-  }
-
-  const updateProfileLink = (profileLink: ProfileLink, id: number) => {
-    const linkToUpdate = profileLinks.value.find((link) => link.id === id)
-
-    if (linkToUpdate) {
-      linkToUpdate.url = profileLink.url
-      linkToUpdate.platform = profileLink.platform
-      localStorage.setItem('profileLinks', JSON.stringify(profileLinks.value))
-    }
   }
 
   const removeProfileLink = (id: number) => {
-    profileLinks.value = profileLinks.value.filter((link) => link.id !== id)
+    profileLinks.value = profileLinks.value?.filter((link) => link.id !== id)
     localStorage.setItem('profileLinks', JSON.stringify(profileLinks.value))
   }
 
-  return { profileLinks, idNumb, addProfileLink, removeProfileLink, updateProfileLink }
+  return { profileLinks, idNumb, addProfileLink, removeProfileLink }
 })
