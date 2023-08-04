@@ -23,6 +23,10 @@ const { isAuthenticated } = useAuth0()
   max-width: 1400px;
   margin-inline: auto;
 
+  @media (max-width: 600px) {
+    padding: 0.5rem;
+  }
+
   .main-grid {
     margin-top: 2rem;
     display: grid;

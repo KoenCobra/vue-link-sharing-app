@@ -43,6 +43,10 @@ function addLink() {
   border-radius: 12px;
   padding: 2.5rem;
 
+  @media (max-width: 600px) {
+    padding: 1rem;
+  }
+
   .header {
     h1 {
       font-size: 2rem;

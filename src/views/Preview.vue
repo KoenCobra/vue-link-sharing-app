@@ -3,6 +3,7 @@ import { useUserStore } from '@/stores/user'
 import { useProfileLinkStore } from '@/stores/profile-link'
 import { useToast } from 'primevue/usetoast'
 import Toast from 'primevue/toast'
+
 const toast = useToast()
 
 const user = useUserStore().user
@@ -78,6 +79,11 @@ function copyUrlToClipboard() {
   border-radius: 0 0 32px 32px;
   padding: 1.5rem;
 
+  @media (max-width: 600px) {
+    background-color: transparent;
+    padding: 0;
+  }
+
   .preview-header-nav {
     background-color: $white;
     display: flex;
@@ -85,6 +91,11 @@ function copyUrlToClipboard() {
     justify-content: space-between;
     padding: 1rem 1.5rem;
     border-radius: 12px;
+
+    @media (max-width: 600px) {
+      background-color: transparent;
+      padding: 1rem 0.5rem;
+    }
 
     a {
       padding: 0.6875rem 1.6785rem;
@@ -118,6 +129,12 @@ function copyUrlToClipboard() {
     align-items: center;
     justify-content: center;
     text-align: center;
+
+    @media (max-width: 600px) {
+      background-color: transparent;
+      box-shadow: none;
+      padding: 0 10px;
+    }
 
     .preview-card-user {
       width: 100%;

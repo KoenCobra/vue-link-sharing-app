@@ -53,6 +53,10 @@ export default {
   border-radius: 12px;
   padding: 2.5rem;
 
+  @media (max-width: 600px) {
+    padding: 1rem;
+  }
+
   h1 {
     color: $darkGrey;
     font-size: 2rem;
@@ -75,6 +79,7 @@ export default {
 
     @media (max-width: 650px) {
       grid-template-columns: 1fr;
+      place-items: center;
       gap: 1rem;
     }
     .picture-label {
