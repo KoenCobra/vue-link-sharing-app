@@ -18,12 +18,22 @@ function addLink() {
       </p>
       <button @click="addLink" class="add-new-link-btn">+ Add new link</button>
     </div>
-    <div class="links">
+    <div v-if="profileLinkStore.profileLinks.length" class="links">
       <Link
         v-for="profileLink in profileLinkStore.profileLinks"
         :profileLinkId="profileLink.id"
         :key="profileLink.id"
       />
+    </div>
+    <div v-else>
+      <div class="empty-list-placeholder">
+        <img src="@/assets/images/illustration-empty.svg" alt="empty" />
+        <h2>Let’s get you started</h2>
+        <p>
+          Use the “Add new link” button to get started. Once you have more than one link, you can
+          reorder and edit them. We’re here to help you share your profiles with everyone!
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -70,6 +80,33 @@ function addLink() {
   .links {
     display: grid;
     gap: 1.5rem;
+  }
+
+  .empty-list-placeholder {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin-inline: auto;
+    width: 488px;
+
+    img {
+      width: 249.533px;
+      height: 160px;
+      margin-block: 2rem;
+      margin-inline: auto;
+    }
+
+    h2 {
+      color: $darkGrey;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+    }
+
+    p {
+      color: $grey;
+    }
   }
 }
 </style>
