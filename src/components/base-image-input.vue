@@ -34,7 +34,7 @@ export default {
     @click="chooseImage"
   >
     <div class="placeholder" :class="{ uploaded: imageData }">
-      <img src="@/assets/images/icon-upload-image.svg" alt="" />
+      <img src="/images/icon-upload-image.svg" alt="" />
       <p v-if="!imageData">+ Upload Image</p>
       <p v-else>Change Image</p>
     </div>
