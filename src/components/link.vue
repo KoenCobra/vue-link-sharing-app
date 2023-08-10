@@ -8,62 +8,62 @@ const profileLinkStore = useProfileLinkStore()
 let placeholder: string = ''
 const dropdownItems = ref<DropdownItem[]>([
   {
-    icon: 'public/images/icon-github.svg',
+    icon: '/images/icon-github.svg',
     platform: 'GitHub',
     background: '#1A1A1A'
   },
   {
-    icon: 'public/images/icon-youtube.svg',
+    icon: '/images/icon-youtube.svg',
     platform: 'YouTube',
     background: '#EE3939'
   },
   {
-    icon: 'public/images/icon-linkedin.svg',
+    icon: '/images/icon-linkedin.svg',
     platform: 'LinkedIn',
     background: '#2D68FF'
   },
   {
-    icon: 'public/images/icon-facebook.svg',
+    icon: '/images/icon-facebook.svg',
     platform: 'Facebook',
     background: '#4867AA'
   },
   {
-    icon: 'public/images/icon-frontend-mentor.svg',
+    icon: '/images/icon-frontend-mentor.svg',
     platform: 'Frontend Mentor',
     background: '#67BECE'
   },
   {
-    icon: 'public/images/icon-codepen.svg',
+    icon: '/images/icon-codepen.svg',
     platform: 'Code Pen',
     background: '#000'
   },
   {
-    icon: 'public/images/icon-codewars.svg',
+    icon: '/images/icon-codewars.svg',
     platform: 'Code Wars',
     background: '#B1361E'
   },
   {
-    icon: 'public/images/icon-gitlab.svg',
+    icon: '/images/icon-gitlab.svg',
     platform: 'GitLab',
     background: '#DA4127'
   },
   {
-    icon: 'public/images/icon-hashnode.svg',
+    icon: '/images/icon-hashnode.svg',
     platform: 'HashNode',
     background: '#2962FF'
   },
   {
-    icon: 'public/images/icon-stack-overflow.svg',
+    icon: '/images/icon-stack-overflow.svg',
     platform: 'Stack Overflow',
     background: '#EC7C20'
   },
   {
-    icon: 'public/images/icon-twitch.svg',
+    icon: '/images/icon-twitch.svg',
     platform: 'Twitch',
     background: '#8B44F7'
   },
   {
-    icon: 'public/images/icon-twitter.svg',
+    icon: '/images/icon-twitter.svg',
     platform: 'twitter',
     background: '#1D9BF0'
   }
@@ -121,7 +121,7 @@ function setPlaceholder(event: any) {
         <div class="input-field">
           <label>Link</label>
           <div class="input-icons">
-            <img class="link-icon" src="@/assets/images/icon-link.svg" alt="" />
+            <img class="link-icon" src="/images/icon-link.svg" alt="" />
             <input
               v-model="profileLink.url"
               type="text"

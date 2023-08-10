@@ -28,7 +28,7 @@ const profileLinkStore = useProfileLinkStore()
               <img
                 @click="profileLinkStore.removeProfileLink(link.id)"
                 class="arrow"
-                src="public/images/icon-arrow-right.svg"
+                src="/images/icon-arrow-right.svg"
                 alt="arrow"
               />
             </div>

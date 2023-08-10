@@ -40,7 +40,7 @@
       </div>
       <RouterLink to="/preview" class="preview-btn">
         <span class="preview-span"> Preview </span>
-        <img class="eye-icon" src="public/images/icon-preview-header.svg" alt="" />
+        <img class="eye-icon" src="/images/icon-preview-header.svg" alt="" />
       </RouterLink>
     </div>
   </nav>
@@ -64,13 +64,13 @@
   }
 
   .logo {
-    background-image: url('public/images/logo-devlinks-large.svg');
+    background-image: url('/images/logo-devlinks-large.svg');
     background-repeat: no-repeat;
     width: 200px;
     height: 37px;
 
     @media (max-width: 800px) {
-      background-image: url('public/images/logo-devlinks-small.svg');
+      background-image: url('/images/logo-devlinks-small.svg');
       width: 30px;
     }
   }
