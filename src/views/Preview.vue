@@ -62,7 +62,7 @@ function copyUrlToClipboard() {
                 <img
                   @click="profileLinkStore.removeProfileLink(link.id)"
                   class="arrow"
-                  src="@/assets/images/icon-arrow-right.svg"
+                  src="public/images/icon-arrow-right.svg"
                   alt="arrow"
                 />
               </div>

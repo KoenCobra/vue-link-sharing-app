@@ -8,62 +8,62 @@ const profileLinkStore = useProfileLinkStore()
 let placeholder: string = ''
 const dropdownItems = ref<DropdownItem[]>([
   {
-    icon: 'src/assets/images/icon-github.svg',
+    icon: 'public/images/icon-github.svg',
     platform: 'GitHub',
     background: '#1A1A1A'
   },
   {
-    icon: 'src/assets/images/icon-youtube.svg',
+    icon: 'public/images/icon-youtube.svg',
     platform: 'YouTube',
     background: '#EE3939'
   },
   {
-    icon: 'src/assets/images/icon-linkedin.svg',
+    icon: 'public/images/icon-linkedin.svg',
     platform: 'LinkedIn',
     background: '#2D68FF'
   },
   {
-    icon: 'src/assets/images/icon-facebook.svg',
+    icon: 'public/images/icon-facebook.svg',
     platform: 'Facebook',
     background: '#4867AA'
   },
   {
-    icon: 'src/assets/images/icon-frontend-mentor.svg',
+    icon: 'public/images/icon-frontend-mentor.svg',
     platform: 'Frontend Mentor',
     background: '#67BECE'
   },
   {
-    icon: 'src/assets/images/icon-codepen.svg',
+    icon: 'public/images/icon-codepen.svg',
     platform: 'Code Pen',
     background: '#000'
   },
   {
-    icon: 'src/assets/images/icon-codewars.svg',
+    icon: 'public/images/icon-codewars.svg',
     platform: 'Code Wars',
     background: '#B1361E'
   },
   {
-    icon: 'src/assets/images/icon-gitlab.svg',
+    icon: 'public/images/icon-gitlab.svg',
     platform: 'GitLab',
     background: '#DA4127'
   },
   {
-    icon: 'src/assets/images/icon-hashnode.svg',
+    icon: 'public/images/icon-hashnode.svg',
     platform: 'HashNode',
     background: '#2962FF'
   },
   {
-    icon: 'src/assets/images/icon-stack-overflow.svg',
+    icon: 'public/images/icon-stack-overflow.svg',
     platform: 'Stack Overflow',
     background: '#EC7C20'
   },
   {
-    icon: 'src/assets/images/icon-twitch.svg',
+    icon: 'public/images/icon-twitch.svg',
     platform: 'Twitch',
     background: '#8B44F7'
   },
   {
-    icon: 'src/assets/images/icon-twitter.svg',
+    icon: 'public/images/icon-twitter.svg',
     platform: 'twitter',
     background: '#1D9BF0'
   }
